@@ -4,8 +4,6 @@
 
 Blog platform for developers, TILog
 
-[Getting started](#getting-started) •
-[Installation](#installation) •
-[Configuration](#configuration)
+[Project Convention](https://github.com/TIL-Log-lab/Tilog-server-node-v2/discussions/4) •
 
 </div>
