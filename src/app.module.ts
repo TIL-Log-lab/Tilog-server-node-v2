@@ -1,7 +1,11 @@
-import { ClassSerializerInterceptor, Module } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Module,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AppService } from '@api/app.service';
 import { AppController } from '@api/app.controller';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [],
@@ -9,6 +13,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   providers: [
     AppService,
     { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
+    { provide: APP_PIPE, useClass: ValidationPipe },
   ],
 })
 export class AppModule {}
