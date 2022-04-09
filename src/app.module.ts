@@ -6,7 +6,7 @@ import {
 import { AppService } from '@api/app.service';
 import { AppController } from '@api/app.controller';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { AllExceptionsFilter } from '@app/library/';
+import { AllExceptionsFilter } from '@app/library/all-exceptions';
 
 @Module({
   imports: [],
