@@ -35,7 +35,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const responseBody = {
       statusCode: httpStatusCode,
       requestLocation: request.url,
-      message: isCustomException ? customExceptionData.message : null,
+      message: isCustomException ? customExceptionData.message : undefined,
     };
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatusCode);
   }
