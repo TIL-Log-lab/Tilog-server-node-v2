@@ -43,7 +43,7 @@
     "prisma:generate": "prisma generate",
     "prisma:pull:local": "dotenv -e environments/.local.env prisma db pull",
     "prisma:push:local": "dotenv -e environments/.local.env prisma db push",
-    "prisma:init:migrate:local": "dotenv -e environments/.local.env prisma migrate dev --name initial-migration --create-only"
+    "prisma:migrate:local": "dotenv -e environments/.local.env prisma migrate dev"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
