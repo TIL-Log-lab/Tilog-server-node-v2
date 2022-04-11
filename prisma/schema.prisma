@@ -91,18 +91,12 @@ model posts {
 
 model users {
   id                    Int                    @id @default(autoincrement()) @db.UnsignedInt
-  oAuthType             String                 @db.VarChar(10)
-  oAuthServiceID        String                 @db.VarChar(50)
   userName              String                 @default("User") @db.VarChar(50)
   proFileImageURL       String?                @db.VarChar(300)
   mailAddress           String?                @db.VarChar(50)
-  password              String?                @db.VarChar(50)
-  accessToken           String                 @db.VarChar(255)
-  refreshToken          String?                @db.VarChar(255)
   createdAt             DateTime               @db.DateTime(0)
   updatedAt             DateTime?              @db.DateTime(0)
   deletedAt             DateTime?              @db.DateTime(0)
-  admin                 Int                    @default(0) @db.TinyInt
   comments              comments[]
   imageUpload           imageUpload[]
   postLike              postLike[]
