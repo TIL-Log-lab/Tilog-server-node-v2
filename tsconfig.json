@@ -18,6 +18,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
 		"noUncheckedIndexedAccess": true,
+    // NOTE: DTO  프로퍼티는 반드시 초기화할 필요가 없기 때문에 해당 기능 비활성화
+    "strictPropertyInitialization": false,
     // NOTE: @api: 비즈니스 로직, @app: 기타 라이브러리 파일, 경로가 깊은 순서대로 정렬
     "paths": {
       "@app/utils/":[
