@@ -7,6 +7,12 @@
   - You are about to drop the `tags` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `userblogCustomization` table. If the table is not empty, all the data it contains will be lost.
 
+  postsTags 테이블 삭제
+  tags 테이블 삭제
+  userblogCustomization 테이블 삭제
+  pinnedRepositoryCategories 테이블 삭제
+  pinnedRepositories 테이블 삭제
+
 */
 -- DropForeignKey
 ALTER TABLE `pinnedRepositoryCategories` DROP FOREIGN KEY `FK_pinnedRepositoryCategories_categoryID_category_id`;
