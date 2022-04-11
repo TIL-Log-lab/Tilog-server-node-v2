@@ -20,7 +20,6 @@ model comments {
   postsID     BigInt
   htmlContent String    @db.VarChar(300)
   replyTo     BigInt?
-  replyLevel  Int       @default(0) @db.TinyInt
   createdAt   DateTime  @db.DateTime(0)
   updatedAt   DateTime? @db.DateTime(0)
   deletedAt   DateTime? @db.DateTime(0)
