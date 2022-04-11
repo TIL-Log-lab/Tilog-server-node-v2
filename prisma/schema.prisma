@@ -11,7 +11,6 @@ model category {
   id                         Int                          @id @default(autoincrement()) @db.UnsignedInt
   categoryName               String                       @db.VarChar(30)
   iconURL                    String?                      @db.VarChar(300)
-  pinnedRepositoryCategories pinnedRepositoryCategories[]
   posts                      posts[]
 }
 
@@ -21,7 +20,6 @@ model comments {
   postsID     BigInt
   htmlContent String    @db.VarChar(300)
   replyTo     BigInt?
-  replyLevel  Int       @default(0) @db.TinyInt
   createdAt   DateTime  @db.DateTime(0)
   updatedAt   DateTime? @db.DateTime(0)
   deletedAt   DateTime? @db.DateTime(0)
@@ -42,26 +40,6 @@ model imageUpload {
   users         users?   @relation(fields: [usersID], references: [id], map: "FK_imageUpload_usersID_users_id")
 
   @@index([usersID], map: "FK_imageUpload_usersID_users_id")
-}
-
-model pinnedRepositories {
-  id                         Int                          @id @default(autoincrement()) @db.UnsignedInt
-  nodeID                     String                       @db.VarChar(30)
-  processPercent             Int                          @default(0) @db.TinyInt
-  demoURL                    String?                      @db.VarChar(300)
-  position                   String?                      @db.VarChar(10)
-  pinnedRepositoryCategories pinnedRepositoryCategories[]
-}
-
-model pinnedRepositoryCategories {
-  id                   Int                @id @default(autoincrement()) @db.UnsignedInt
-  categoryID           Int                @db.UnsignedInt
-  pinnedRepositoriesID Int                @db.UnsignedInt
-  category             category           @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "FK_pinnedRepositoryCategories_categoryID_category_id")
-  pinnedRepositories   pinnedRepositories @relation(fields: [pinnedRepositoriesID], references: [id], onDelete: Cascade, map: "FK_pinnedRepositoryCategories_pinnedRepositoriesID_pinnedReposit")
-
-  @@index([categoryID], map: "FK_pinnedRepositoryCategories_categoryID_category_id")
-  @@index([pinnedRepositoriesID], map: "FK_pinnedRepositoryCategories_pinnedRepositoriesID_pinnedReposit")
 }
 
 model postLike {
@@ -104,57 +82,22 @@ model posts {
   comments        comments[]
   postLike        postLike[]
   postView        postView[]
-  postsTags       postsTags[]
 
   @@index([categoryID], map: "FK_posts_categoryID_category_id")
   @@index([likes, createdAt], map: "createdAt_likes_INDEX")
   @@index([usersID, id], map: "userID_postID_INDEX")
 }
 
-model postsTags {
-  id        BigInt   @id @default(autoincrement())
-  postsID   BigInt
-  tagsID    BigInt
-  createdAt DateTime @db.DateTime(0)
-  posts     posts    @relation(fields: [postsID], references: [id], onDelete: Cascade, map: "FK_postsTags_postsID_posts_id")
-  tags      tags     @relation(fields: [tagsID], references: [id], onDelete: Cascade, map: "FK_postsTags_tagsID_tags_id")
-
-  @@index([postsID], map: "FK_postsTags_postsID_posts_id")
-  @@index([tagsID], map: "FK_postsTags_tagsID_tags_id")
-}
-
-model tags {
-  id        BigInt      @id @default(autoincrement())
-  tagsName  String      @db.VarChar(30)
-  createdAt DateTime    @db.DateTime(0)
-  postsTags postsTags[]
-}
-
-model userblogCustomization {
-  usersID          Int     @id @db.UnsignedInt
-  blogTitle        String? @db.VarChar(20)
-  statusMessage    String? @db.VarChar(30)
-  selfIntroduction String? @db.VarChar(300)
-  users            users   @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_userblogCustomization_usersID_users_id")
-}
-
 model users {
   id                    Int                    @id @default(autoincrement()) @db.UnsignedInt
-  oAuthType             String                 @db.VarChar(10)
-  oAuthServiceID        String                 @db.VarChar(50)
   userName              String                 @default("User") @db.VarChar(50)
   proFileImageURL       String?                @db.VarChar(300)
   mailAddress           String?                @db.VarChar(50)
-  password              String?                @db.VarChar(50)
-  accessToken           String                 @db.VarChar(255)
-  refreshToken          String?                @db.VarChar(255)
   createdAt             DateTime               @db.DateTime(0)
   updatedAt             DateTime?              @db.DateTime(0)
   deletedAt             DateTime?              @db.DateTime(0)
-  admin                 Int                    @default(0) @db.TinyInt
   comments              comments[]
   imageUpload           imageUpload[]
   postLike              postLike[]
   posts                 posts[]
-  userblogCustomization userblogCustomization?
 }
