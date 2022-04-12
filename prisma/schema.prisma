@@ -89,17 +89,23 @@ model posts {
 }
 
 model users {
-  id              Int           @id @default(autoincrement()) @db.UnsignedInt
-  userName        String        @default("User") @db.VarChar(50)
-  proFileImageURL String?       @db.VarChar(300)
-  mailAddress     String?       @db.VarChar(50)
-  createdAt       DateTime      @db.DateTime(0)
-  updatedAt       DateTime?     @db.DateTime(0)
-  deletedAt       DateTime?     @db.DateTime(0)
-  comments        comments[]
-  imageUpload     imageUpload[]
-  postLike        postLike[]
-  posts           posts[]
+  id                Int            @id @default(autoincrement()) @db.UnsignedInt
+  userName          String         @default("User") @db.VarChar(50)
+  proFileImageURL   String?        @db.VarChar(300)
+  mailAddress       String?        @db.VarChar(50)
+  provider          OauthProvider?
+  providerServiceId String?
+  createdAt         DateTime       @db.DateTime(0)
+  updatedAt         DateTime?      @db.DateTime(0)
+  deletedAt         DateTime?      @db.DateTime(0)
+  comments          comments[]
+  imageUpload       imageUpload[]
+  postLike          postLike[]
+  posts             posts[]
+}
+
+enum OauthProvider {
+  GITHUB
 }
 
 // NOTE: 유저 refreshToken 기록 테이블
