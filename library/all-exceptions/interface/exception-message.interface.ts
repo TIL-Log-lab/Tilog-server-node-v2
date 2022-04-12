@@ -4,7 +4,7 @@ import { COUNTRY } from '@app/utils/';
 export const isExceptionMessageInterface = (
   object: any,
 ): object is ExceptionMessageInterface => {
-  const hadMessage = 'message' in object;
+  const hadMessage = object ? 'message' in object : false;
   const hadCountryFlag = object?.message[0]?.countryFlag;
   return !!(hadMessage && hadCountryFlag);
 };
