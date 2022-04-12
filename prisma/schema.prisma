@@ -8,10 +8,10 @@ datasource db {
 }
 
 model category {
-  id                         Int                          @id @default(autoincrement()) @db.UnsignedInt
-  categoryName               String                       @db.VarChar(30)
-  iconURL                    String?                      @db.VarChar(300)
-  posts                      posts[]
+  id           Int     @id @default(autoincrement()) @db.UnsignedInt
+  categoryName String  @db.VarChar(30)
+  iconURL      String? @db.VarChar(300)
+  posts        posts[]
 }
 
 model comments {
@@ -65,20 +65,20 @@ model postView {
 }
 
 model posts {
-  id              BigInt      @id @default(autoincrement())
-  usersID         Int         @db.UnsignedInt
-  categoryID      Int         @db.UnsignedInt
-  title           String      @db.VarChar(50)
-  thumbNailURL    String?     @db.VarChar(300)
-  viewCounts      Int         @default(0) @db.UnsignedInt
-  likes           Int         @default(0) @db.UnsignedInt
-  markDownContent String?     @db.MediumText
-  private         Int         @default(0) @db.TinyInt
-  createdAt       DateTime    @db.DateTime(0)
-  updatedAt       DateTime?   @db.DateTime(0)
-  deletedAt       DateTime?   @db.DateTime(0)
-  category        category    @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "FK_posts_categoryID_category_id")
-  users           users       @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_posts_usersID_users_id")
+  id              BigInt     @id @default(autoincrement())
+  usersID         Int        @db.UnsignedInt
+  categoryID      Int        @db.UnsignedInt
+  title           String     @db.VarChar(50)
+  thumbNailURL    String?    @db.VarChar(300)
+  viewCounts      Int        @default(0) @db.UnsignedInt
+  likes           Int        @default(0) @db.UnsignedInt
+  markDownContent String?    @db.MediumText
+  private         Int        @default(0) @db.TinyInt
+  createdAt       DateTime   @db.DateTime(0)
+  updatedAt       DateTime?  @db.DateTime(0)
+  deletedAt       DateTime?  @db.DateTime(0)
+  category        category   @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "FK_posts_categoryID_category_id")
+  users           users      @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_posts_usersID_users_id")
   comments        comments[]
   postLike        postLike[]
   postView        postView[]
@@ -89,15 +89,26 @@ model posts {
 }
 
 model users {
-  id                    Int                    @id @default(autoincrement()) @db.UnsignedInt
-  userName              String                 @default("User") @db.VarChar(50)
-  proFileImageURL       String?                @db.VarChar(300)
-  mailAddress           String?                @db.VarChar(50)
-  createdAt             DateTime               @db.DateTime(0)
-  updatedAt             DateTime?              @db.DateTime(0)
-  deletedAt             DateTime?              @db.DateTime(0)
-  comments              comments[]
-  imageUpload           imageUpload[]
-  postLike              postLike[]
-  posts                 posts[]
+  id              Int           @id @default(autoincrement()) @db.UnsignedInt
+  userName        String        @default("User") @db.VarChar(50)
+  proFileImageURL String?       @db.VarChar(300)
+  mailAddress     String?       @db.VarChar(50)
+  createdAt       DateTime      @db.DateTime(0)
+  updatedAt       DateTime?     @db.DateTime(0)
+  deletedAt       DateTime?     @db.DateTime(0)
+  comments        comments[]
+  imageUpload     imageUpload[]
+  postLike        postLike[]
+  posts           posts[]
+}
+
+// NOTE: 유저 refreshToken 기록 테이블
+// users.id --------<  usersAuth.userId
+model usersAuth {
+  refreshToken String    @id
+  userId       Int?
+  userIp       String?
+  userAgent    String?
+  lastUseAt    DateTime?
+  expireAt     DateTime?
 }
