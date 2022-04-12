@@ -1,11 +1,11 @@
 version: '3.9'
 services:
   database:
-    image: mysql:8.0.28-oracle
+    image: mysql:8.0.28
     container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=Tilog
+      - MYSQL_DATABASE=tilog
       - MYSQL_USER=tilog
       - MYSQL_PASSWORD=tilog
     volumes:
