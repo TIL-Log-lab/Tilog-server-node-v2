@@ -112,7 +112,7 @@ enum OauthProvider {
 // users.id --------<  usersAuth.userId
 model usersAuth {
   refreshToken String    @id
-  userId       Int?
+  userId       Int
   userIp       String?
   userAgent    String?
   lastUseAt    DateTime?
