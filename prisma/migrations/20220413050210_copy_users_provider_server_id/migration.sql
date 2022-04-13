@@ -1,0 +1,1 @@
+UPDATE `users` SET `providerServiceId` = `oAuthServiceID`;
