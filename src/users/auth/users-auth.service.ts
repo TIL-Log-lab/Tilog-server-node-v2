@@ -1,8 +1,10 @@
-import { decodeRefreshTokenFail } from '@api/users/auth/errors/users-auth.error';
-import { UsersAuthRepository } from '@api/users/auth/users-auth.repository';
-import { PrismaService } from '@app/library/prisma';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { users, usersAuth } from '@prisma/client';
+
+import { PrismaService } from '@app/library/prisma';
+import { UsersAuthRepository } from '@api/users/auth/users-auth.repository';
+
+import { decodeRefreshTokenFail } from '@api/users/auth/errors/users-auth.error';
 
 @Injectable()
 export class UsersAuthService {

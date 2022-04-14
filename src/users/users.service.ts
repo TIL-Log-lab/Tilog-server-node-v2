@@ -1,7 +1,8 @@
-import { UsersRepository } from '@api/users/users.repository';
-import { PrismaService } from '@app/library/prisma';
 import { Injectable } from '@nestjs/common';
 import { OauthProvider, users } from '@prisma/client';
+
+import { PrismaService } from '@app/library/prisma';
+import { UsersRepository } from '@api/users/users.repository';
 
 @Injectable()
 export class UsersService {

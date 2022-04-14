@@ -1,9 +1,11 @@
-import { TokenPayload } from '@api/users/auth/types/users-auth.repository.type';
-import { now } from '@app/utils/';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaClient, users, usersAuth } from '@prisma/client';
+
+import { now } from '@app/utils/';
+
+import { TokenPayload } from '@api/users/auth/types/users-auth.repository.type';
 
 @Injectable()
 export class UsersAuthRepository {

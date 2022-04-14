@@ -1,8 +1,3 @@
-import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
-import { UsersAuthService } from '@api/users/auth/users-auth.service';
-import { UpSertUserAndGetIdResponse } from '@api/users/types/users.service.type';
-import { CookieService } from '@app/utils/cookie/cookie.service';
-import { GithubAuthGuard } from '@app/utils/guards/auth/github-auth.guard';
 import {
   Controller,
   Delete,
@@ -13,8 +8,15 @@ import {
   Res,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Response, Request } from 'express';
+import { ConfigService } from '@nestjs/config';
+
+import { UsersAuthService } from '@api/users/auth/users-auth.service';
+import { CookieService } from '@app/utils/cookie/cookie.service';
+import { GithubAuthGuard } from '@app/utils/guards/auth/github-auth.guard';
+
+import { UpSertUserAndGetIdResponse } from '@api/users/types/users.service.type';
+import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
 
 // TODO: 데코레이터 병합 필요
 @Controller('auth')
