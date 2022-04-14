@@ -37,6 +37,30 @@ export class UsersAuthRepository {
     });
   }
 
+  findOneByRefreshToken({
+    prismaConnection,
+    refreshToken,
+  }: {
+    prismaConnection: PrismaClient;
+    refreshToken: usersAuth['refreshToken'];
+  }) {
+    return prismaConnection.usersAuth.findUnique({ where: { refreshToken } });
+  }
+
+  deleteByRefreshToken({
+    prismaConnection,
+    refreshToken,
+  }: {
+    prismaConnection: PrismaClient;
+    refreshToken: usersAuth['refreshToken'];
+  }) {
+    return prismaConnection.usersAuth.deleteMany({ where: { refreshToken } });
+  }
+
+  generateAccessToken(userId: users['id']) {
+    return this.jwtService.sign({ userId });
+  }
+
   generateRefreshToken(userId: users['id']) {
     return this.jwtService.sign(
       { userId },
@@ -45,6 +69,12 @@ export class UsersAuthRepository {
         expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
       },
     );
+  }
+
+  decodeAccessToken(accessToken: string) {
+    return this.jwtService.verify<TokenPayload>(accessToken, {
+      secret: this.configService.get<string>('JWT_SECRET_KEY'),
+    });
   }
 
   decodeRefreshToken(refreshToken: string) {
