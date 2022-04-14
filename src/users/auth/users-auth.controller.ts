@@ -17,6 +17,7 @@ import { GithubAuthGuard } from '@app/utils/guards/auth/github-auth.guard';
 
 import { UpSertUserAndGetIdResponse } from '@api/users/types/users.service.type';
 import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
+import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
 
 // TODO: 데코레이터 병합 필요
 @Controller('auth')
@@ -55,17 +56,21 @@ export class UsersAuthController {
   }
 
   @Get('access-token')
-  getAccessTokenUsingRefreshToken(
+  async getAccessTokenUsingRefreshToken(
     @Req() request: Request,
     @Headers('user-agent') userAgent: string,
   ) {
     if (!this.cookieService.isRefreshTokenCookie(request.cookies))
       throw new UnauthorizedException(hasNotRefreshToken);
     const token = request.cookies.refreshToken;
-    return this.usersAuthService.verifyRefreshTokenAndCreateAccessToken(
-      token,
-      userAgent,
-    );
+
+    return new GetAccessTokenUsingRefreshTokenResponse({
+      accessToken:
+        await this.usersAuthService.verifyRefreshTokenAndCreateAccessToken(
+          token,
+          userAgent,
+        ),
+    });
   }
 
   @Delete('logout')
