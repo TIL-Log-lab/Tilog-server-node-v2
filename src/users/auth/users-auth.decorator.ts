@@ -1,8 +1,4 @@
-import {
-  ApiAcceptedResponse,
-  ApiCreatedResponse,
-  ApiOkResponse,
-} from '@nestjs/swagger';
+import { ApiOkResponse } from '@nestjs/swagger';
 import { applyDecorators, Delete, Get, Post } from '@nestjs/common';
 
 import { GithubAuthGuard } from '@app/utils/guards/auth/github-auth.guard';

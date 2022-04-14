@@ -11,7 +11,7 @@ export class UsersService {
     private readonly usersRepository: UsersRepository,
   ) {}
 
-  async upSertUserAndGetId({
+  async upsertUserAndGetId({
     provider,
     userName,
     proFileImageURL,

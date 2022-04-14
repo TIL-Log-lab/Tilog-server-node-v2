@@ -7,8 +7,8 @@ import {
   Logger,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
+
 import { isExceptionMessageInterface } from '@app/library/all-exceptions';
-import { object } from 'joi';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

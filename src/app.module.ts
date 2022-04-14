@@ -4,8 +4,8 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+
 import { AllExceptionsFilter } from '@app/library/all-exceptions';
 import validationSchema from '@env/validationSchema';
 import { UsersModule } from './users/users.module';

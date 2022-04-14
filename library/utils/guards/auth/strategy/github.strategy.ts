@@ -1,9 +1,10 @@
-import { UsersService } from '@api/users/users.service';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { OauthProvider } from '@prisma/client';
 import { Strategy, Profile, StrategyOption } from 'passport-github2';
+
+import { UsersService } from '@api/users/users.service';
 
 // NOTE: Passport-Github2 타입 확장
 interface GithubProfile extends Profile {
@@ -29,7 +30,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   }
 
   validate(_: string, __: string, profile: GithubProfile) {
-    return this.usersService.upSertUserAndGetId({
+    return this.usersService.upsertUserAndGetId({
       provider: OauthProvider.GITHUB,
       providerServiceId: profile.nodeId,
       userName: profile.username ?? 'noname',
