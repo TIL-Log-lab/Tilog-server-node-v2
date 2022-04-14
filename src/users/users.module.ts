@@ -9,6 +9,7 @@ import { UsersAuthRepository } from '@api/users/auth/users-auth.repository';
 import { GithubStrategy } from '@app/utils/guards/auth/strategy/github.strategy';
 import { UsersAuthService } from '@api/users/auth/users-auth.service';
 import { UsersService } from '@api/users/users.service';
+import { CookieService } from '@app/utils/cookie/cookie.service';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UsersService } from '@api/users/users.service';
     GithubStrategy,
     UsersService,
     UsersRepository,
+    CookieService,
   ],
   controllers: [UsersAuthController],
 })
