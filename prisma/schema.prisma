@@ -90,7 +90,6 @@ model posts {
 
 model users {
   id                Int            @id @default(autoincrement()) @db.UnsignedInt
-  oAuthServiceID    String         @db.VarChar(50)
   userName          String         @default("User") @db.VarChar(50)
   proFileImageURL   String?        @db.VarChar(300)
   mailAddress       String?        @db.VarChar(50)
@@ -113,7 +112,7 @@ enum OauthProvider {
 // users.id --------<  usersAuth.userId
 model usersAuth {
   refreshToken String    @id
-  userId       Int?
+  userId       Int
   userIp       String?
   userAgent    String?
   lastUseAt    DateTime?

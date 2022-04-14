@@ -7,6 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
+
 import { isExceptionMessageInterface } from '@app/library/all-exceptions';
 
 @Catch()
@@ -32,7 +33,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const isCustomException = isExceptionMessageInterface(customExceptionData);
 
     // TODO: 개발 참고용, 배포시 제외
-    Logger.error(isHttpException ? exception.getResponse() : exception);
+    Logger.error(JSON.stringify(customExceptionData));
 
     const responseBody = {
       statusCode: httpStatusCode,

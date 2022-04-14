@@ -19,6 +19,25 @@ DATABASE_URL="mysql://root:root@localhost:3306/Tilog?connect_timeout=100&pool_ti
 
 # server Port
 SERVER_PORT=80
+
+# Oauth Settings
+OAUTH_GITHUB_CLIENT_ID=
+OAUTH_GITHUB_CLIENT_SECRET=
+OAUTH_GITHUB_CALLBACK_URL=http://localhost/auth/github/callback
+
+# Access Token Settings
+JWT_SECRET_KEY=1q2w3e4r
+JWT_EXPIRES_IN=30m
+
+# Refresh Token Settings
+JWT_REFRESH_SECRET_KEY=1q2w3e4r
+JWT_REFRESH_EXPIRES_IN=7d
+
+# Refresh Token Cookie Settings
+REFRESH_COOKIE_HTTP_ONLY=true
+REFRESH_COOKIE_SECURE=true
+REFRESH_COOKIE_PATH=/
+REFRESH_COOKIE_SAME_SITE=none
 ```
 
 ## validation

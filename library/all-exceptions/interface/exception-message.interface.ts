@@ -9,9 +9,9 @@ export const isExceptionMessageInterface = (
   return !!(hadMessage && hadCountryFlag);
 };
 export interface ExceptionMessageInterface {
-  message: [ExceptionMessageItemInterface];
+  message: ExceptionMessageItemInterface[];
 }
-interface ExceptionMessageItemInterface {
+export interface ExceptionMessageItemInterface {
   countryFlag: typeof COUNTRY[keyof typeof COUNTRY];
   message: string;
 }
