@@ -10,7 +10,10 @@ export const decodeRefreshTokenFail: ExceptionMessageInterface = {
 
 export const hasNotRefreshToken: ExceptionMessageInterface = {
   message: [
-    { countryFlag: COUNTRY.ko, message: '권한이 없습니다 로그인해주세요' },
+    {
+      countryFlag: COUNTRY.ko,
+      message: '인증이 만료되었습니다 다시 로그인해주세요',
+    },
     {
       countryFlag: COUNTRY.en,
       message: 'You dont have permission Please log in',
