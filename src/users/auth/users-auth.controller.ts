@@ -13,13 +13,17 @@ import { ConfigService } from '@nestjs/config';
 
 import { UsersAuthService } from '@api/users/auth/users-auth.service';
 import { CookieService } from '@app/utils/cookie/cookie.service';
-import { GithubAuthGuard } from '@app/utils/guards/auth/github-auth.guard';
+import {
+  GetAccessTokenUsingRefreshToken,
+  GithubLogin,
+  GithubLoginCallback,
+  Logout,
+} from '@api/users/auth/users-auth.decorator';
 
 import { UpSertUserAndGetIdResponse } from '@api/users/types/users.service.type';
 import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
 
-// TODO: 데코레이터 병합 필요
 @Controller('auth')
 export class UsersAuthController {
   constructor(
@@ -28,14 +32,12 @@ export class UsersAuthController {
     private readonly cookieService: CookieService,
   ) {}
 
-  @Get('github/login')
-  @GithubAuthGuard()
+  @GithubLogin()
   githubLogin() {
     return null;
   }
 
-  @Get('github/callback')
-  @GithubAuthGuard()
+  @GithubLoginCallback()
   async githubLoginCallback(
     @Req() { user }: { user: UpSertUserAndGetIdResponse },
     @Ip() userIp: string,
@@ -55,7 +57,7 @@ export class UsersAuthController {
     return null;
   }
 
-  @Get('access-token')
+  @GetAccessTokenUsingRefreshToken()
   async getAccessTokenUsingRefreshToken(
     @Req() request: Request,
     @Headers('user-agent') userAgent: string,
@@ -73,7 +75,7 @@ export class UsersAuthController {
     });
   }
 
-  @Delete('logout')
+  @Logout()
   async deleteRefreshToken(
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
