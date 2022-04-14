@@ -1,7 +1,5 @@
 import {
   Controller,
-  Delete,
-  Get,
   Headers,
   Ip,
   Req,
