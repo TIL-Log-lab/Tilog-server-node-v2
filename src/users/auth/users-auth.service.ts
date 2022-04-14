@@ -20,7 +20,7 @@ export class UsersAuthService {
     private readonly prismaService: PrismaService,
   ) {}
 
-  private injectDeviceType(userAgent: string) {
+  private parseDeviceType(userAgent: string) {
     if (userAgent.length > 300)
       throw new PayloadTooLargeException(deviceTypeInjectFail);
     const re = /(?<=\().*?(?=;)/;
@@ -37,7 +37,7 @@ export class UsersAuthService {
     userAgent: string;
     userIp: usersAuth['userIp'];
   }) {
-    const userDevice = this.injectDeviceType(userAgent)[0] ?? null;
+    const userDevice = this.parseDeviceType(userAgent)[0] ?? null;
     const refreshToken = this.usersAuthRepository.generateRefreshToken(id);
 
     await this.usersAuthRepository.createHistory({
@@ -83,7 +83,7 @@ export class UsersAuthService {
       throw new UnauthorizedException(decodeRefreshTokenFail);
     }
     // NOTE: 유저 디바이스 타입 비교
-    const userDevice = this.injectDeviceType(userAgent)[0] ?? null;
+    const userDevice = this.parseDeviceType(userAgent)[0] ?? null;
     if (userDevice !== refreshTokenHistory.userAgent) {
       await this.usersAuthRepository.deleteByRefreshToken({
         prismaConnection: this.prismaService,
