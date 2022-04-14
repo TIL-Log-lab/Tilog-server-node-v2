@@ -40,6 +40,14 @@ export class UsersAuthService {
     return refreshToken;
   }
 
+  async deleteRefreshTokenHistory(refreshToken: usersAuth['refreshToken']) {
+    const deleteResult = await this.usersAuthRepository.deleteByRefreshToken({
+      prismaConnection: this.prismaService,
+      refreshToken,
+    });
+    return deleteResult.count;
+  }
+
   async verifyRefreshTokenAndCreateAccessToken(
     refreshToken: usersAuth['refreshToken'],
     userAgent: string,
