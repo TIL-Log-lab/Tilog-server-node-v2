@@ -1,10 +1,17 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  PayloadTooLargeException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { users, usersAuth } from '@prisma/client';
 
 import { PrismaService } from '@app/library/prisma';
 import { UsersAuthRepository } from '@api/users/auth/users-auth.repository';
 
-import { decodeRefreshTokenFail } from '@api/users/auth/errors/users-auth.error';
+import {
+  decodeRefreshTokenFail,
+  deviceTypeInjectFail,
+} from '@api/users/auth/errors/users-auth.error';
 
 @Injectable()
 export class UsersAuthService {
@@ -14,6 +21,8 @@ export class UsersAuthService {
   ) {}
 
   private injectDeviceType(userAgent: string) {
+    if (userAgent.length > 300)
+      throw new PayloadTooLargeException(deviceTypeInjectFail);
     const re = /(?<=\().*?(?=;)/;
     return userAgent.match(re) ?? [];
   }

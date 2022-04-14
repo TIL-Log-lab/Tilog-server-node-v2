@@ -17,3 +17,16 @@ export const hasNotRefreshToken: ExceptionMessageInterface = {
     },
   ],
 };
+
+export const deviceTypeInjectFail: ExceptionMessageInterface = {
+  message: [
+    {
+      countryFlag: COUNTRY.ko,
+      message: '유저 기기 정보를 가져오는데 실패했습니다',
+    },
+    {
+      countryFlag: COUNTRY.en,
+      message: 'Failed to get user device information',
+    },
+  ],
+};
