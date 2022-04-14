@@ -4,7 +4,7 @@
 
 Blog platform for developers, TILog
 
-[Project Convention](https://github.com/TIL-Log-lab/Tilog-server-node-v2/discussions/4) •
+[프로젝트 컨벤션](https://github.com/TIL-Log-lab/Tilog-server-node-v2/discussions/4) • [마이그레이션 히스토리](https://github.com/TIL-Log-lab/Tilog-server-node-v2/tree/main/prisma/migrations)
 
 </div>
 
