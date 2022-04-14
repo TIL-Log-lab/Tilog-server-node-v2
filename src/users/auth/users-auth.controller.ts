@@ -65,4 +65,22 @@ export class UsersAuthController {
       userAgent,
     );
   }
+
+  @Delete('logout')
+  async deleteRefreshToken(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    if (!this.cookieService.isRefreshTokenCookie(request.cookies))
+      throw new UnauthorizedException(hasNotRefreshToken);
+    const token = request.cookies.refreshToken;
+    await this.usersAuthService.deleteRefreshTokenHistory(token);
+
+    response.clearCookie(
+      'refreshToken',
+      this.cookieService.refreshCookieOptions(),
+    );
+
+    return null;
+  }
 }
