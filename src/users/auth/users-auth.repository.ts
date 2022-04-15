@@ -59,24 +59,18 @@ export class UsersAuthRepository {
     return prismaConnection.usersAuth.deleteMany({ where: { refreshToken } });
   }
 
-  generateAccessToken(userId: users['id']) {
-    return this.jwtService.sign(
-      { userId },
-      {
-        secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-        expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
-      },
-    );
+  generateAccessToken(payload: TokenPayload) {
+    return this.jwtService.sign(payload, {
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+    });
   }
 
-  generateRefreshToken(userId: users['id']) {
-    return this.jwtService.sign(
-      { userId },
-      {
-        secret: this.configService.get<string>('JWT_SECRET_KEY'),
-        expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
-      },
-    );
+  generateRefreshToken(payload: TokenPayload) {
+    return this.jwtService.sign(payload, {
+      secret: this.configService.get<string>('JWT_SECRET_KEY'),
+      expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
+    });
   }
 
   decodeAccessToken(accessToken: string) {
