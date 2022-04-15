@@ -5,7 +5,7 @@ import { PrismaClient, users, usersAuth } from '@prisma/client';
 
 import { now } from '@app/utils/';
 
-import { TokenPayload } from '@api/users/auth/types/users-auth.repository.type';
+import { TokenPayload } from '@app/utils/token/types/token.type';
 
 @Injectable()
 export class UsersAuthRepository {
