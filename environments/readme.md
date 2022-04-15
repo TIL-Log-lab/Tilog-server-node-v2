@@ -18,26 +18,33 @@ Configure the .env file
 DATABASE_URL="mysql://root:root@localhost:3306/Tilog?connect_timeout=100&pool_timeout=100&socket_timeout=100"
 
 # server Port
+# 서버 기본 설정
 SERVER_PORT=80
 
 # Oauth Settings
+# Github Oauth 설정
 OAUTH_GITHUB_CLIENT_ID=
 OAUTH_GITHUB_CLIENT_SECRET=
 OAUTH_GITHUB_CALLBACK_URL=http://localhost/auth/github/callback
 
 # Access Token Settings
+# 액세스 토큰 설정
 JWT_SECRET_KEY=1q2w3e4r
 JWT_EXPIRES_IN=30m
 
 # Refresh Token Settings
+# 리프레시 토큰 설정
 JWT_REFRESH_SECRET_KEY=1q2w3e4r
-JWT_REFRESH_EXPIRES_IN=7d
+JWT_REFRESH_EXPIRES_IN=1h
 
 # Refresh Token Cookie Settings
+# 리프레시 토큰 쿠키 설정
 REFRESH_COOKIE_HTTP_ONLY=true
 REFRESH_COOKIE_SECURE=true
 REFRESH_COOKIE_PATH=/
 REFRESH_COOKIE_SAME_SITE=none
+REFRESH_COOKIE_DOMAIN=.localhost
+REFRESH_COOKIE_MAX_AGE=3600
 ```
 
 ## validation

@@ -15,4 +15,6 @@ export default Joi.object({
   REFRESH_COOKIE_SECURE: Joi.boolean().required(),
   REFRESH_COOKIE_PATH: Joi.string().required(),
   REFRESH_COOKIE_SAME_SITE: Joi.string().required(),
+  REFRESH_COOKIE_DOMAIN: Joi.string().required(),
+  REFRESH_COOKIE_MAX_AGE: Joi.number().required(),
 });
