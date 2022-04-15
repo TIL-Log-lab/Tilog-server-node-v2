@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClient, users, usersAuth } from '@prisma/client';
+import { PrismaClient, usersAuth } from '@prisma/client';
 
 import { now } from '@app/utils/';
 
-import { TokenPayload } from '@api/users/auth/types/users-auth.repository.type';
+import { TokenPayload } from '@app/utils/token/types/token.type';
 
 @Injectable()
 export class UsersAuthRepository {
@@ -59,18 +59,18 @@ export class UsersAuthRepository {
     return prismaConnection.usersAuth.deleteMany({ where: { refreshToken } });
   }
 
-  generateAccessToken(userId: users['id']) {
-    return this.jwtService.sign({ userId });
+  generateAccessToken(payload: TokenPayload) {
+    return this.jwtService.sign(payload, {
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+    });
   }
 
-  generateRefreshToken(userId: users['id']) {
-    return this.jwtService.sign(
-      { userId },
-      {
-        secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-        expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
-      },
-    );
+  generateRefreshToken(payload: TokenPayload) {
+    return this.jwtService.sign(payload, {
+      secret: this.configService.get<string>('JWT_SECRET_KEY'),
+      expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
+    });
   }
 
   decodeAccessToken(accessToken: string) {

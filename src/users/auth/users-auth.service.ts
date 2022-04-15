@@ -38,7 +38,9 @@ export class UsersAuthService {
     userIp: usersAuth['userIp'];
   }) {
     const userDevice = this.parseDeviceType(userAgent)[0] ?? null;
-    const refreshToken = this.usersAuthRepository.generateRefreshToken(id);
+    const refreshToken = this.usersAuthRepository.generateRefreshToken({
+      userId: id,
+    });
 
     await this.usersAuthRepository.createHistory({
       prismaConnection: this.prismaService,
@@ -92,8 +94,8 @@ export class UsersAuthService {
       throw new UnauthorizedException(decodeRefreshTokenFail);
     }
     // NOTE: 엑세스 토큰 발급
-    return this.usersAuthRepository.generateAccessToken(
-      refreshTokenHistory.userId,
-    );
+    return this.usersAuthRepository.generateAccessToken({
+      userId: refreshTokenHistory.userId,
+    });
   }
 }

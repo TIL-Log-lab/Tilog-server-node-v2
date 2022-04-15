@@ -27,6 +27,6 @@ export class CookieService {
 
   isRefreshTokenCookie(object: any): object is TilogCookie {
     if (!object) return false;
-    return 'refreshCookie' in object;
+    return 'refreshToken' in object;
   }
 }

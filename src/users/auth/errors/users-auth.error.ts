@@ -8,6 +8,13 @@ export const decodeRefreshTokenFail: ExceptionMessageInterface = {
   ],
 };
 
+export const decodeAccessTokenFail: ExceptionMessageInterface = {
+  message: [
+    { countryFlag: COUNTRY.ko, message: '액세스 토큰 인증에 실패했습니다.' },
+    { countryFlag: COUNTRY.en, message: 'Decode AccessToken Fail' },
+  ],
+};
+
 export const hasNotRefreshToken: ExceptionMessageInterface = {
   message: [
     {
