@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClient, users, usersAuth } from '@prisma/client';
+import { PrismaClient, usersAuth } from '@prisma/client';
 
 import { now } from '@app/utils/';
 
