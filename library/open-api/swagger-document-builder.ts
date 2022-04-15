@@ -9,10 +9,10 @@ const config = new DocumentBuilder()
     {
       type: 'http',
       scheme: 'bearer',
-      name: 'JWT',
+      name: 'Authorization',
       in: 'header',
     },
-    'Authorization',
+    'accessToken',
   )
   .build();
 
