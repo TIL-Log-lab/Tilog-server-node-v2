@@ -8,14 +8,14 @@ import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get
 export const GithubLogin = () =>
   applyDecorators(
     Get('github/login'),
-    GithubAuthGuard,
+    GithubAuthGuard(),
     ApiOkResponse({ description: '깃허브 Oauth 로그인', type: undefined }),
   );
 
 export const GithubLoginCallback = () =>
   applyDecorators(
     Get('github/callback'),
-    GithubAuthGuard,
+    GithubAuthGuard(),
     ApiOkResponse({ description: '깃허브 로그인 콜백', type: undefined }),
   );
 

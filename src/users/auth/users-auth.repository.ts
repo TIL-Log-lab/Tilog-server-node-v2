@@ -60,15 +60,21 @@ export class UsersAuthRepository {
   }
 
   generateAccessToken(userId: users['id']) {
-    return this.jwtService.sign({ userId });
+    return this.jwtService.sign(
+      { userId },
+      {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
+        expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+      },
+    );
   }
 
   generateRefreshToken(userId: users['id']) {
     return this.jwtService.sign(
       { userId },
       {
-        secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-        expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+        secret: this.configService.get<string>('JWT_SECRET_KEY'),
+        expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
       },
     );
   }
