@@ -61,15 +61,15 @@ export class UsersAuthRepository {
 
   generateAccessToken(payload: TokenPayload) {
     return this.jwtService.sign(payload, {
-      secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+      secret: this.configService.get<string>('JWT_SECRET_KEY'),
+      expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
     });
   }
 
   generateRefreshToken(payload: TokenPayload) {
     return this.jwtService.sign(payload, {
-      secret: this.configService.get<string>('JWT_SECRET_KEY'),
-      expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
     });
   }
 
