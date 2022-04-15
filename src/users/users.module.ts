@@ -10,6 +10,7 @@ import { GithubStrategy } from '@app/utils/guards/auth/strategy/github.strategy'
 import { UsersAuthService } from '@api/users/auth/users-auth.service';
 import { UsersService } from '@api/users/users.service';
 import { CookieService } from '@app/utils/cookie/cookie.service';
+import { JwtAccessTokenStrategy } from '@app/utils/guards/auth/strategy/jwt-access-token.strategy';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { CookieService } from '@app/utils/cookie/cookie.service';
     UsersAuthService,
     UsersAuthRepository,
     GithubStrategy,
+    JwtAccessTokenStrategy,
     UsersService,
     UsersRepository,
     CookieService,
