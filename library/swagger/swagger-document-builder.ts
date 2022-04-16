@@ -21,7 +21,7 @@ export const swaggerDocumentBuilder = (app: INestApplication): void => {
   const document = SwaggerModule.createDocument(app, config);
   if (process.env.NODE_ENV === 'local') {
     fs.writeFileSync(
-      'library/open-api/openapi-spec.json',
+      'library/swagger/openapi-spec.json',
       JSON.stringify(document),
     );
   }
