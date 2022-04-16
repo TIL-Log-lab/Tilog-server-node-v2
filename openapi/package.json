@@ -1,0 +1,23 @@
+{
+  "name": "@til-log.lab/tilog-api",
+  "version": "0.0.2",
+  "description": "TILog-v2 openapi",
+  "main": "./tilog-api/index.ts",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/TIL-Log-lab/Tilog-server-node-v2"
+  },
+  "author": {
+    "name": "argon1025",
+    "email": "argon1025@gmail.com",
+    "url": "https://github.com/argon1025"
+  },
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "axios": "^0.26.1"
+  },
+  "scripts": {
+    "version:patch": "yarn version --patch",
+    "package:publish": "yarn version:patch && yarn publish"
+  }
+}
