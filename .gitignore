@@ -39,3 +39,8 @@ docker/mysql/mysql-data
 
 # Env
 *.env
+
+# Open-api
+openapi/tilog-api
+library/swagger/openapi-spec.json
+.npmrc

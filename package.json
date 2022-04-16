@@ -43,7 +43,9 @@
     "prisma:generate": "prisma generate",
     "prisma:pull:local": "dotenv -e environments/.local.env prisma db pull",
     "prisma:push:local": "dotenv -e environments/.local.env prisma db push",
-    "prisma:migrate:local": "dotenv -e environments/.local.env prisma migrate dev"
+    "prisma:migrate:local": "dotenv -e environments/.local.env prisma migrate dev",
+    "openapi:generate": "openapi-generator-cli generate -i library/swagger/openapi-spec.json -g typescript-axios -o openapi/tilog-api",
+    "openapi:publish":"cd ./openapi && yarn package:publish"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -73,6 +75,7 @@
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
+    "@openapitools/openapi-generator-cli": "^2.4.26",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "27.4.1",

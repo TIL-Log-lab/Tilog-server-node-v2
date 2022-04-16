@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as fs from 'fs';
 
 const config = new DocumentBuilder()
   .setTitle('Tilog-v2')
@@ -18,6 +19,12 @@ const config = new DocumentBuilder()
 
 export const swaggerDocumentBuilder = (app: INestApplication): void => {
   const document = SwaggerModule.createDocument(app, config);
+  if (process.env.NODE_ENV === 'local') {
+    fs.writeFileSync(
+      'library/swagger/openapi-spec.json',
+      JSON.stringify(document),
+    );
+  }
   SwaggerModule.setup('api', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
