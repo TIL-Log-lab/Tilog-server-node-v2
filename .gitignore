@@ -42,5 +42,5 @@ docker/mysql/mysql-data
 
 # Open-api
 openapi/tilog-api
-library/open-api/openapi-spec.json
+library/swagger/openapi-spec.json
 .npmrc
