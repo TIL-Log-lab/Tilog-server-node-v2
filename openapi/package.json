@@ -1,6 +1,6 @@
 {
   "name": "@til-log.lab/tilog-api",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "TILog-v2 openapi",
   "main": "./tilog-api/index.ts",
   "repository": {
@@ -17,7 +17,7 @@
     "axios": "^0.26.1"
   },
   "scripts": {
-    "version:patch": "yarn version --patch --no-git-tag-version",
+    "version:patch": "yarn version --patch",
     "package:publish": "yarn version:patch && yarn publish"
   }
 }
