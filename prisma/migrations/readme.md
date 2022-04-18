@@ -98,3 +98,12 @@
 ### Detail
 
 - 이전 마이그레이션에서 데이터 이동을 마친 후 oAuthServiceID 컬럼을 삭제했습니다
+
+## 9.Posts.createdDay 컬럼 추가
+
+> Migration filename : `20220418034331_add_posts_columns`  
+> Pull Request : [Link](https://github.com/TIL-Log-lab/Tilog-server-node-v2/pull/32)
+
+### Detail
+
+- `createdDay` 컬럼을 생성하고 `createdAt` 데이터를 Sync 했습니다 
