@@ -13,12 +13,12 @@ export class PostsService {
 
   async createPost({
     userId,
-    categoryId = 0,
+    categoryId,
     title,
     subTitle,
     thumbnailUrl,
     markdownContent,
-    isPrivate = false,
+    isPrivate,
   }: {
     userId: posts['usersID'];
     categoryId: posts['categoryID'];
