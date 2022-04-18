@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { posts, Prisma, PrismaClient } from '@prisma/client';
+import { posts } from '@prisma/client';
 
 import { now } from '@app/utils/';
+
 import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()
