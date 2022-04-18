@@ -1,6 +1,7 @@
-import { JwtAccessTokenGuard } from '@app/utils/guards/auth/jwt-access-token.guard';
 import { applyDecorators, Post } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
+
+import { JwtAccessTokenGuard } from '@app/utils/guards/auth/jwt-access-token.guard';
 
 export const CreatePost = () =>
   applyDecorators(
