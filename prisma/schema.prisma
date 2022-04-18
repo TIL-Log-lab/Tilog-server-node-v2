@@ -69,6 +69,7 @@ model posts {
   usersID         Int        @db.UnsignedInt
   categoryID      Int        @db.UnsignedInt
   title           String     @db.VarChar(50)
+  subTitle        String?
   thumbNailURL    String?    @db.VarChar(300)
   viewCounts      Int        @default(0) @db.UnsignedInt
   likes           Int        @default(0) @db.UnsignedInt
@@ -77,6 +78,7 @@ model posts {
   createdAt       DateTime   @db.DateTime(0)
   updatedAt       DateTime?  @db.DateTime(0)
   deletedAt       DateTime?  @db.DateTime(0)
+  createdDay      DateTime?  @db.Date()
   category        category   @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "FK_posts_categoryID_category_id")
   users           users      @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_posts_usersID_users_id")
   comments        comments[]
