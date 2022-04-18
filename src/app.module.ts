@@ -9,6 +9,7 @@ import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AllExceptionsFilter } from '@app/library/all-exceptions';
 import validationSchema from '@env/validationSchema';
 import { UsersModule } from './users/users.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UsersModule } from './users/users.module';
       validationSchema,
     }),
     UsersModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [
