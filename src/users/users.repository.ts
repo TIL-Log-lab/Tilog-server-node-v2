@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, OauthProvider, users } from '@prisma/client';
+import { OauthProvider, users } from '@prisma/client';
 
 import { now } from '@app/utils/';
+
+import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()
 export class UsersRepository {
@@ -10,7 +12,7 @@ export class UsersRepository {
     provider,
     providerServiceId,
   }: {
-    prismaConnection: PrismaClient;
+    prismaConnection: PrismaConnection;
     provider: OauthProvider;
     providerServiceId: users['providerServiceId'];
   }) {
@@ -33,7 +35,7 @@ export class UsersRepository {
     proFileImageURL,
     providerServiceId,
   }: {
-    prismaConnection: PrismaClient;
+    prismaConnection: PrismaConnection;
     userId: users['id'];
     providerServiceId: users['providerServiceId'];
     provider: OauthProvider;

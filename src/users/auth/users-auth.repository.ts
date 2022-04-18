@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClient, usersAuth } from '@prisma/client';
+import { usersAuth } from '@prisma/client';
 
 import { now } from '@app/utils/';
 
 import { TokenPayload } from '@app/utils/token/types/token.type';
+import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()
 export class UsersAuthRepository {
@@ -22,7 +23,7 @@ export class UsersAuthRepository {
     userAgent,
     userIp,
   }: {
-    prismaConnection: PrismaClient;
+    prismaConnection: PrismaConnection;
     userId: usersAuth['userId'];
     refreshToken: usersAuth['refreshToken'];
     userAgent: usersAuth['userAgent'];
@@ -43,7 +44,7 @@ export class UsersAuthRepository {
     prismaConnection,
     refreshToken,
   }: {
-    prismaConnection: PrismaClient;
+    prismaConnection: PrismaConnection;
     refreshToken: usersAuth['refreshToken'];
   }) {
     return prismaConnection.usersAuth.findUnique({ where: { refreshToken } });
@@ -53,7 +54,7 @@ export class UsersAuthRepository {
     prismaConnection,
     refreshToken,
   }: {
-    prismaConnection: PrismaClient;
+    prismaConnection: PrismaConnection;
     refreshToken: usersAuth['refreshToken'];
   }) {
     return prismaConnection.usersAuth.deleteMany({ where: { refreshToken } });
