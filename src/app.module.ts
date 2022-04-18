@@ -24,7 +24,14 @@ import { PostsModule } from './posts/posts.module';
   controllers: [],
   providers: [
     { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
-    { provide: APP_PIPE, useClass: ValidationPipe },
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidUnknownValues: true,
+      }),
+    },
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
   ],
 })

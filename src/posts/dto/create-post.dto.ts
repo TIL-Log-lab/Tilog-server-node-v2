@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsBoolean,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -11,28 +12,33 @@ import {
 
 export class CreatePostRequestBodyDto {
   @IsNumber()
+  @IsNotEmpty()
   categoryId: posts['categoryID'];
 
   @IsString()
+  @IsNotEmpty()
   @MaxLength(50)
   title: posts['title'];
 
   @IsOptional()
   @IsString()
   @MaxLength(50)
-  @ApiProperty({ nullable: true })
-  subTitle: NonNullable<posts['subTitle']>;
+  @ApiProperty({ type: String, nullable: true })
+  subTitle: posts['subTitle'];
 
   @IsOptional()
   @IsString()
   @MaxLength(300)
-  @ApiProperty({ nullable: true })
-  thumbnailUrl: NonNullable<posts['thumbNailURL']>;
+  @ApiProperty({ type: String, nullable: true })
+  thumbnailUrl: posts['thumbNailURL'];
 
   @IsString()
-  markdownContent: NonNullable<posts['markDownContent']>;
+  @IsNotEmpty()
+  @ApiProperty({ type: String, nullable: true })
+  markdownContent: posts['markDownContent'];
 
   @Transform(({ value }) => value === 'true')
   @IsBoolean()
+  @IsNotEmpty()
   isPrivate: boolean;
 }
