@@ -40,3 +40,16 @@ export const deviceTypeInjectFail: ExceptionMessageInterface = {
     },
   ],
 };
+
+export const unauthorizedUser: ExceptionMessageInterface = {
+  message: [
+    {
+      countryFlag: COUNTRY.ko,
+      message: '로그인된 유저만 접근할 수 있습니다',
+    },
+    {
+      countryFlag: COUNTRY.en,
+      message: 'You dont have permission Please log in',
+    },
+  ],
+};
