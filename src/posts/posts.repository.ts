@@ -61,4 +61,18 @@ export class PostsRepository {
       where: { id: postId },
     });
   }
+
+  addLikeCountById(prismaConnection: PrismaConnection, postId: posts['id']) {
+    return prismaConnection.posts.update({
+      data: { likes: { increment: 1 } },
+      where: { id: postId },
+    });
+  }
+
+  subLikeCountById(prismaConnection: PrismaConnection, postId: posts['id']) {
+    return prismaConnection.posts.update({
+      data: { likes: { decrement: 1 } },
+      where: { id: postId },
+    });
+  }
 }
