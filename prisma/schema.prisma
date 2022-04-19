@@ -44,12 +44,13 @@ model imageUpload {
 }
 
 model postLike {
-  id      BigInt   @id @default(autoincrement())
-  usersID Int      @db.UnsignedInt
-  postsID BigInt
-  likedAt DateTime @db.DateTime(0)
-  posts   posts    @relation(fields: [postsID], references: [id], onDelete: Cascade, map: "FK_postLike_postsID_posts_id")
-  users   users    @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_postLike_usersID_users_id")
+  id        BigInt    @id @default(autoincrement())
+  usersID   Int       @db.UnsignedInt
+  postsID   BigInt
+  likedAt   DateTime  @db.DateTime(0)
+  deletedAt DateTime? @db.DateTime(0)
+  posts     posts     @relation(fields: [postsID], references: [id], onDelete: Cascade, map: "FK_postLike_postsID_posts_id")
+  users     users     @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_postLike_usersID_users_id")
 
   @@index([postsID], map: "FK_postLike_postsID_posts_id")
   @@index([usersID], map: "FK_postLike_usersID_users_id")
