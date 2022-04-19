@@ -8,6 +8,7 @@ import { posts, postView } from '@prisma/client';
 import { PostsRepository } from '@api/posts/posts.repository';
 import { PrismaService } from '@app/library/prisma';
 import { PostsViewRepository } from '@api/posts/view/posts-view.repository';
+import { isPrivatePost, postNotFound } from '@api/posts/errors/posts.error';
 
 @Injectable()
 export class PostsService {
@@ -73,11 +74,12 @@ export class PostsService {
       postId,
     );
 
-    if (!searchResult) throw new NotFoundException();
+    if (!searchResult) throw new NotFoundException(postNotFound);
 
     // NOTE: 비밀글일 경우 본인만 열람이 가능하다
     if (searchResult.private === 1) {
-      if (searchResult.usersID !== userId) throw new NotFoundException();
+      if (searchResult.usersID !== userId)
+        throw new NotFoundException(isPrivatePost);
     }
 
     return searchResult;
