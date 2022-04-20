@@ -88,6 +88,8 @@ export class PostsRepository {
     userId,
     categoryId,
     hasPrivatePosts,
+    maxContent,
+    page,
   }: {
     prismaConnection: PrismaConnection;
     dateScope: PostSearchDateScope;
@@ -95,6 +97,8 @@ export class PostsRepository {
     userId?: posts['usersID'];
     categoryId?: posts['categoryID'];
     hasPrivatePosts?: boolean;
+    maxContent: number;
+    page: number;
   }) {
     const dayCount = Number(PostSearchDateScope[`${dateScope}`]);
     const days = arrayOfLastDate(now(), dayCount);
@@ -111,6 +115,8 @@ export class PostsRepository {
         users: { deletedAt: null },
       },
       orderBy: [{ [`${sortScope}`]: 'desc' }],
+      skip: page === 0 ? 0 : maxContent * page,
+      take: maxContent,
     });
   }
 }

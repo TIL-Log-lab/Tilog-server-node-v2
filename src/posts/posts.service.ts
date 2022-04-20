@@ -93,12 +93,16 @@ export class PostsService {
     userId,
     categoryId,
     personalRequest,
+    maxContent,
+    page,
   }: {
     dateScope: PostSearchDateScope;
     sortScope: PostSearchSortScope;
     userId?: posts['usersID'];
     categoryId?: posts['categoryID'];
     personalRequest: boolean;
+    maxContent: number;
+    page: number;
   }) {
     return this.postsRepository.getPost({
       prismaConnection: this.prismaService,
@@ -107,6 +111,8 @@ export class PostsService {
       userId,
       categoryId,
       hasPrivatePosts: personalRequest,
+      maxContent,
+      page,
     });
   }
 }

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { category, posts, users } from '@prisma/client';
 import { Transform, Type } from 'class-transformer';
-import { IsEnum, IsInt, IsOptional } from 'class-validator';
+import { IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
 
 import { PostSearchDateScope, PostSearchSortScope } from '@app/utils/';
 
@@ -21,6 +21,16 @@ export class GetPostsRequestQueryDto {
   @IsOptional()
   @Type(() => Number)
   categoryId?: posts['categoryID'];
+
+  @IsInt()
+  @Type(() => Number)
+  page: number;
+
+  @IsInt()
+  @Max(20)
+  @Min(1)
+  @Type(() => Number)
+  maxContent: number;
 }
 
 class GetPostsItem {

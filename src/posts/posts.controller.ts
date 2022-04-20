@@ -86,6 +86,8 @@ export class PostsController {
       userId: getPostsRequestQueryDto.userId,
       categoryId: getPostsRequestQueryDto.categoryId,
       personalRequest: isPersonal,
+      page: getPostsRequestQueryDto.page,
+      maxContent: getPostsRequestQueryDto.maxContent,
     });
     return new GetPostsResponseDto({
       list: postsList.map((item) => {
