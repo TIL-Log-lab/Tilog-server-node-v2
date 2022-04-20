@@ -1,9 +1,9 @@
-import { PostSearchDateScope, PostSearchSortScope } from '@app/utils/';
 import { ApiProperty } from '@nestjs/swagger';
 import { category, posts, users } from '@prisma/client';
 import { Transform, Type } from 'class-transformer';
-import { IsEnum, IsInt, IsNumber, IsOptional } from 'class-validator';
-import { number } from 'joi';
+import { IsEnum, IsInt, IsOptional } from 'class-validator';
+
+import { PostSearchDateScope, PostSearchSortScope } from '@app/utils/';
 
 export class GetPostsRequestQueryDto {
   @IsEnum(PostSearchDateScope)
