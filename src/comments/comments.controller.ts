@@ -13,7 +13,7 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @CreateComments()
-  async createComments(
+  async createComment(
     @JwtUserId() { userId }: TokenPayload,
     @Body() createCommentsRequestBodyDto: CreateCommentsRequestBodyDto,
   ) {
