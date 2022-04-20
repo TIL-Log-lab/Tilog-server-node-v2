@@ -10,6 +10,7 @@ import { AllExceptionsFilter } from '@app/library/all-exceptions';
 import validationSchema from '@env/validationSchema';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { PostsModule } from './posts/posts.module';
     }),
     UsersModule,
     PostsModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [
