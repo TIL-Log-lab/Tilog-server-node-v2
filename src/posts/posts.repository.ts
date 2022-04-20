@@ -106,8 +106,9 @@ export class PostsRepository {
       where: {
         ...(userId && { usersID: userId }),
         ...(categoryId && { categoryID: categoryId }),
-        ...(hasPrivatePosts ? { private: 1 } : { private: 0 }),
+        ...(userId && hasPrivatePosts ? { private: 1 } : { private: 0 }),
         createdDay: { in: days },
+        users: { deletedAt: null },
       },
       orderBy: [{ [`${sortScope}`]: 'desc' }],
     });
