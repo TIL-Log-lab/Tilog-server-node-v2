@@ -100,8 +100,11 @@ export class PostsRepository {
     maxContent: number;
     page: number;
   }) {
-    const dayCount = Number(PostSearchDateScope[`${dateScope}`]);
-    const days = arrayOfLastDate(now(), dayCount);
+    const dayCount =
+      dateScope === PostSearchDateScope.All
+        ? undefined
+        : Number(PostSearchDateScope[`${dateScope}`]);
+
     return prismaConnection.posts.findMany({
       include: {
         users: true,
@@ -111,7 +114,9 @@ export class PostsRepository {
         ...(userId && { usersID: userId }),
         ...(categoryId && { categoryID: categoryId }),
         ...(hasPrivatePosts ? { private: 1 } : { private: 0 }),
-        createdDay: { in: days },
+        createdDay: {
+          in: dayCount ? arrayOfLastDate(now(), dayCount) : undefined,
+        },
         users: { deletedAt: null },
       },
       orderBy: [{ [`${sortScope}`]: 'desc' }],

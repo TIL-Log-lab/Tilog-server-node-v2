@@ -7,7 +7,7 @@ export enum PostSearchDateScope {
   Daily = 1,
   Weekly = 7,
   Monthly = 30,
-  Yearly = 365,
+  All = 0,
 }
 
 export enum PostSearchSortScope {
