@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { comments } from '@prisma/client';
@@ -15,6 +15,7 @@ export class CreateCommentsRequestBodyDto {
   content: comments['content'];
 
   @Transform(({ value }) => BigInt(value))
+  @IsOptional()
   @ApiProperty({ type: String, nullable: true })
   replyTo: comments['replyTo'];
 }
