@@ -34,10 +34,3 @@ export const Logout = () =>
     Delete('logout'),
     ApiOkResponse({ description: '로그아웃 합니다', type: undefined }),
   );
-
-export const GetId = () =>
-  applyDecorators(
-    Get('get-id'),
-    JwtAccessTokenGuard(),
-    ApiOkResponse({ description: '내 정보를 로드합니다', type: undefined }),
-  );

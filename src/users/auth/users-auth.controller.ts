@@ -16,14 +16,11 @@ import {
   GithubLogin,
   GithubLoginCallback,
   Logout,
-  GetId,
 } from '@api/users/auth/users-auth.decorator';
-import { JwtUserId } from '@app/utils/decorators/jwt-user-Id.decorator';
 
 import { UpSertUserAndGetIdResponse } from '@api/users/types/users.service.type';
 import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
-import { TokenPayload } from '@app/utils/token/types/token.type';
 
 @Controller('auth')
 export class UsersAuthController {
@@ -92,10 +89,5 @@ export class UsersAuthController {
     );
 
     return null;
-  }
-
-  @GetId()
-  getId(@JwtUserId() userId: TokenPayload) {
-    return userId;
   }
 }
