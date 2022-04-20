@@ -14,7 +14,6 @@ export const arrayOfLastDate = (date: Date, range: number) => {
     )
     .map((val, index) => {
       if (index === 0) return val;
-      const result = dateFns.subDays(val, index);
-      return result;
+      return dateFns.subDays(val, index);
     });
 };
