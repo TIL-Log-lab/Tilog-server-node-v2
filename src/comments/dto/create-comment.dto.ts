@@ -15,7 +15,6 @@ export class CreateCommentsRequestBodyDto {
   content: comments['content'];
 
   @Transform(({ value }) => BigInt(value))
-  @IsNotEmpty()
-  @ApiProperty({ type: String })
+  @ApiProperty({ type: String, nullable: true })
   replyTo: comments['replyTo'];
 }
