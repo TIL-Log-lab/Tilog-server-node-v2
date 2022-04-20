@@ -62,4 +62,14 @@ export class UsersRepository {
       },
     });
   }
+
+  findOneById({
+    prismaConnection,
+    userId,
+  }: {
+    prismaConnection: PrismaConnection;
+    userId: users['id'];
+  }) {
+    return prismaConnection.users.findUnique({ where: { id: userId } });
+  }
 }

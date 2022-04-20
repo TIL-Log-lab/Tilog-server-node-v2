@@ -41,4 +41,14 @@ export class UsersSettingRepository {
       create: { userId, content, type: settingType },
     });
   }
+
+  getManyByUserId({
+    prismaConnection,
+    userId,
+  }: {
+    prismaConnection: PrismaConnection;
+    userId: usersSetting['userId'];
+  }) {
+    return prismaConnection.usersSetting.findMany({ where: { userId } });
+  }
 }
