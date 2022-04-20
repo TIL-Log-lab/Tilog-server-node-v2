@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE `usersSetting` (
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    `userId` INTEGER NOT NULL,
+    `type` ENUM('DISPLAY_NAME', 'INTRO_MSG', 'EMAIL', 'POSITION') NOT NULL,
+    `content` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

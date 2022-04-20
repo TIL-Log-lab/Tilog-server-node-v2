@@ -11,6 +11,9 @@ import { UsersAuthService } from '@api/users/auth/users-auth.service';
 import { UsersService } from '@api/users/users.service';
 import { CookieService } from '@app/utils/cookie/cookie.service';
 import { JwtAccessTokenStrategy } from '@app/utils/guards/auth/strategy/jwt-access-token.strategy';
+import { UsersController } from '@api/users/users.controller';
+import { UsersSettingRepository } from '@api/users/setting/users-setting.repository';
+import { UsersSettingService } from '@api/users/setting/users-setting.service';
 
 @Module({
   imports: [
@@ -36,7 +39,9 @@ import { JwtAccessTokenStrategy } from '@app/utils/guards/auth/strategy/jwt-acce
     UsersService,
     UsersRepository,
     CookieService,
+    UsersSettingRepository,
+    UsersSettingService,
   ],
-  controllers: [UsersAuthController],
+  controllers: [UsersController, UsersAuthController],
 })
 export class UsersModule {}

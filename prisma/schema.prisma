@@ -122,3 +122,19 @@ model usersAuth {
   lastUseAt    DateTime?
   expireAt     DateTime?
 }
+
+// NOTE: 유저 설정 기록 테이블
+// users.id --------<  usersSetting.userId
+model usersSetting {
+  id      Int         @id @default(autoincrement()) @db.UnsignedInt
+  userId  Int
+  type    settingType
+  content String?
+}
+
+enum settingType {
+  DISPLAY_NAME
+  INTRO_MSG
+  EMAIL
+  POSITION
+}
