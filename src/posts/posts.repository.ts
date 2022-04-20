@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { posts } from '@prisma/client';
 
-import { now } from '@app/utils/';
+import {
+  arrayOfLastDate,
+  now,
+  PostSearchDateScope,
+  PostSearchSortScope,
+} from '@app/utils/';
 
 import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
@@ -73,6 +78,50 @@ export class PostsRepository {
     return prismaConnection.posts.update({
       data: { likes: { decrement: 1 } },
       where: { id: postId },
+    });
+  }
+
+  getPost({
+    prismaConnection,
+    dateScope,
+    sortScope,
+    userId,
+    categoryId,
+    hasPrivatePosts,
+    maxContent,
+    page,
+  }: {
+    prismaConnection: PrismaConnection;
+    dateScope: PostSearchDateScope;
+    sortScope: PostSearchSortScope;
+    userId?: posts['usersID'];
+    categoryId?: posts['categoryID'];
+    hasPrivatePosts?: boolean;
+    maxContent: number;
+    page: number;
+  }) {
+    const dayCount =
+      dateScope === PostSearchDateScope.All
+        ? undefined
+        : Number(PostSearchDateScope[`${dateScope}`]);
+
+    return prismaConnection.posts.findMany({
+      include: {
+        users: true,
+        category: true,
+      },
+      where: {
+        ...(userId && { usersID: userId }),
+        ...(categoryId && { categoryID: categoryId }),
+        ...(hasPrivatePosts ? { private: 1 } : { private: 0 }),
+        createdDay: {
+          in: dayCount ? arrayOfLastDate(now(), dayCount) : undefined,
+        },
+        users: { deletedAt: null },
+      },
+      orderBy: [{ [`${sortScope}`]: 'desc' }],
+      skip: page === 0 ? 0 : maxContent * page,
+      take: maxContent,
     });
   }
 }

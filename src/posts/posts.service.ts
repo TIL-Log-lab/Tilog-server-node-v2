@@ -8,7 +8,9 @@ import { posts, postView } from '@prisma/client';
 import { PostsRepository } from '@api/posts/posts.repository';
 import { PrismaService } from '@app/library/prisma';
 import { PostsViewRepository } from '@api/posts/view/posts-view.repository';
+
 import { isPrivatePost, postNotFound } from '@api/posts/errors/posts.error';
+import { PostSearchDateScope, PostSearchSortScope } from '@app/utils/';
 
 @Injectable()
 export class PostsService {
@@ -83,5 +85,34 @@ export class PostsService {
     }
 
     return searchResult;
+  }
+
+  getPosts({
+    sortScope,
+    dateScope,
+    userId,
+    categoryId,
+    personalRequest,
+    maxContent,
+    page,
+  }: {
+    dateScope: PostSearchDateScope;
+    sortScope: PostSearchSortScope;
+    userId?: posts['usersID'];
+    categoryId?: posts['categoryID'];
+    personalRequest: boolean;
+    maxContent: number;
+    page: number;
+  }) {
+    return this.postsRepository.getPost({
+      prismaConnection: this.prismaService,
+      dateScope,
+      sortScope,
+      userId,
+      categoryId,
+      hasPrivatePosts: personalRequest,
+      maxContent,
+      page,
+    });
   }
 }

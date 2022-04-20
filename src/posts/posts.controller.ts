@@ -7,7 +7,11 @@ import {
 } from '@nestjs/common';
 
 import { PostsService } from '@api/posts/posts.service';
-import { CreatePost, GetPostDetail } from '@api/posts/posts.decorator';
+import {
+  CreatePost,
+  GetPostDetail,
+  GetPosts,
+} from '@api/posts/posts.decorator';
 import { JwtUserId } from '@app/utils/decorators/jwt-user-Id.decorator';
 
 import { CreatePostRequestBodyDto } from '@api/posts/dto/create-post.dto';
@@ -17,6 +21,10 @@ import {
   GetPostDetailRequestQueryDto,
   GetPostDetailResponseDto,
 } from '@api/posts/dto/get-post-detail.dto';
+import {
+  GetPostsRequestQueryDto,
+  GetPostsResponseDto,
+} from '@api/posts/dto/get-posts-detail.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -62,6 +70,51 @@ export class PostsController {
         categoryId: result.category.id,
         name: result.category.categoryName,
       },
+    });
+  }
+
+  @GetPosts()
+  async getPosts(
+    @Query()
+    getPostsRequestQueryDto: GetPostsRequestQueryDto,
+    @JwtUserId() { userId }: TokenPayload,
+  ) {
+    // NOTE: 유저 아이디가 둘다 없을 경우 참이될 수 있기 때문에 추가 연산이 필요하다
+    // 유저가 작성한 게시글 리스트 조회가 아닐경우 개인 요청(private)에서 배재한다
+    const isPersonal = getPostsRequestQueryDto.userId
+      ? getPostsRequestQueryDto.userId === userId
+      : false;
+    const postsList = await this.postsService.getPosts({
+      dateScope: getPostsRequestQueryDto.dateScope,
+      sortScope: getPostsRequestQueryDto.sortScope,
+      userId: getPostsRequestQueryDto.userId,
+      categoryId: getPostsRequestQueryDto.categoryId,
+      personalRequest: isPersonal,
+      page: getPostsRequestQueryDto.page,
+      maxContent: getPostsRequestQueryDto.maxContent,
+    });
+
+    return new GetPostsResponseDto({
+      list: postsList.map((item) => {
+        return {
+          id: item.id,
+          title: item.title,
+          subTitle: item.subTitle,
+          thumbnailUrl: item.thumbNailURL,
+          view: item.viewCounts,
+          like: item.likes,
+          createdAt: item.createdAt,
+          user: {
+            userId: item.users.id,
+            username: item.users.userName,
+            avatar: item.users.proFileImageURL,
+          },
+          category: {
+            categoryId: item.category.id,
+            name: item.category.categoryName,
+          },
+        };
+      }),
     });
   }
 }
