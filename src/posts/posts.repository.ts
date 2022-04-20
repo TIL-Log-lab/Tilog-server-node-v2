@@ -110,7 +110,7 @@ export class PostsRepository {
       where: {
         ...(userId && { usersID: userId }),
         ...(categoryId && { categoryID: categoryId }),
-        ...(userId && hasPrivatePosts ? { private: 1 } : { private: 0 }),
+        ...(hasPrivatePosts ? { private: 1 } : { private: 0 }),
         createdDay: { in: days },
         users: { deletedAt: null },
       },

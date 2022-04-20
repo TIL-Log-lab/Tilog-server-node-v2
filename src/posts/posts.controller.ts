@@ -79,7 +79,11 @@ export class PostsController {
     getPostsRequestQueryDto: GetPostsRequestQueryDto,
     @JwtUserId() { userId }: TokenPayload,
   ) {
-    const isPersonal = getPostsRequestQueryDto.userId === userId;
+    // NOTE: 유저 아이디가 둘다 없을 경우 참이될 수 있기 때문에 추가 연산이 필요하다
+    // 유저가 작성한 게시글 리스트 조회가 아닐경우 개인 요청(private)에서 배재한다
+    const isPersonal = getPostsRequestQueryDto.userId
+      ? getPostsRequestQueryDto.userId === userId
+      : false;
     const postsList = await this.postsService.getPosts({
       dateScope: getPostsRequestQueryDto.dateScope,
       sortScope: getPostsRequestQueryDto.sortScope,
@@ -89,6 +93,7 @@ export class PostsController {
       page: getPostsRequestQueryDto.page,
       maxContent: getPostsRequestQueryDto.maxContent,
     });
+
     return new GetPostsResponseDto({
       list: postsList.map((item) => {
         return {
