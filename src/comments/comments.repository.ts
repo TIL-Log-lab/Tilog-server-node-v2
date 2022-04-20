@@ -1,7 +1,9 @@
-import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
-import { now } from '@app/utils/';
 import { Injectable } from '@nestjs/common';
 import { comments } from '@prisma/client';
+
+import { now } from '@app/utils/';
+
+import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()
 export class CommentsRepository {
