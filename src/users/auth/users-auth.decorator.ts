@@ -4,7 +4,6 @@ import { applyDecorators, Delete, Get, Post } from '@nestjs/common';
 import { GithubAuthGuard } from '@app/utils/guards/auth/github-auth.guard';
 
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
-import { JwtAccessTokenGuard } from '@app/utils/guards/auth/jwt-access-token.guard';
 
 export const GithubLogin = () =>
   applyDecorators(
