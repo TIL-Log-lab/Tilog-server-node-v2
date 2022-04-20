@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { OauthProvider, users, usersSetting } from '@prisma/client';
+import { usersSetting } from '@prisma/client';
 
 import { PrismaService } from '@app/library/prisma';
-import { UsersRepository } from '@api/users/users.repository';
 import { UsersSettingRepository } from '@api/users/setting/users-setting.repository';
 
 @Injectable()
