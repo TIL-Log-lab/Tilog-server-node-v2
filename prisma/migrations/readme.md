@@ -106,4 +106,32 @@
 
 ### Detail
 
-- `createdDay` 컬럼을 생성하고 `createdAt` 데이터를 Sync 했습니다 
+- `createdDay` 컬럼을 생성하고 `createdAt` 데이터를 Sync 했습니다
+
+## 10. Comments.content 컬럼 추가
+
+> Migration filename : `20220420110539_add_comments_columns`  
+> Pull Request : [Link](https://github.com/TIL-Log-lab/Tilog-server-node-v2/pull/40)
+
+### Detail
+
+- 기존 `htmlContent` 컬럼을 대체하기 위해 `content` 컬럼을 생성했습니다.
+
+## 11. Comments 테이블 htmlContent -> content 데이터 이동
+
+> Migration filename : `20220420110759_copy_comments_content`  
+> Pull Request : [Link](https://github.com/TIL-Log-lab/Tilog-server-node-v2/pull/40)
+
+### Detail
+
+- `content` = `htmlContent`
+- 컬럼명 변경을 위해 기존 `htmlContent` 데이터를 `content`로 이동했습니다
+
+## 12. 데이터 이동이 끝난 Comments 테이블의 htmlContent 컬럼 삭제
+
+> Migration filename : `20220420110926_delete_comments_column_html_content`  
+> Pull Request : [Link](https://github.com/TIL-Log-lab/Tilog-server-node-v2/pull/40)
+
+### Detail
+
+- 이전 마이그레이션에서 데이터 이동을 마친 후 htmlContent 컬럼을 삭제했습니다
