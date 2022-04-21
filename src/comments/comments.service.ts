@@ -39,4 +39,32 @@ export class CommentsService {
       replyTo,
     });
   }
+
+  async getComments({
+    postId,
+    replyTo,
+  }: {
+    postId: comments['postsID'];
+    replyTo: comments['replyTo'];
+  }) {
+    const hasPost = await this.postsRepository.getDetailFindById(
+      this.prismaService,
+      postId,
+    );
+
+    if (!hasPost) throw new NotFoundException(postNotFound);
+
+    const commentsList = await this.commentsRepository.findMany({
+      prismaConnection: this.prismaService,
+      postId,
+      replyTo,
+    });
+
+    return commentsList.map((item) => {
+      return {
+        ...item,
+        content: item.deletedAt ? null : item.content,
+      };
+    });
+  }
 }
