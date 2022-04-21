@@ -1,12 +1,16 @@
-import { Body, Controller, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Query, UnauthorizedException } from '@nestjs/common';
 
 import { CommentsService } from '@api/comments/comments.service';
 import { JwtUserId } from '@app/utils/decorators/jwt-user-Id.decorator';
-import { CreateComments } from '@api/comments/comments.decorator';
+import { CreateComments, GetComments } from '@api/comments/comments.decorator';
 
 import { TokenPayload } from '@app/utils/token/types/token.type';
 import { CreateCommentsRequestBodyDto } from '@api/comments/dto/create-comment.dto';
 import { decodeAccessTokenFail } from '@api/users/auth/errors/users-auth.error';
+import {
+  GetCommentsRequestQueryDto,
+  GetCommentsResponseDto,
+} from '@api/comments/dto/get-comments.dto';
 
 @Controller('comments')
 export class CommentsController {
@@ -23,5 +27,32 @@ export class CommentsController {
       ...createCommentsRequestBodyDto,
     });
     return null;
+  }
+
+  @GetComments()
+  async getComments(
+    @Query() getCommentsRequestQueryDto: GetCommentsRequestQueryDto,
+  ) {
+    const commentsList = await this.commentsService.getComments(
+      getCommentsRequestQueryDto,
+    );
+
+    return new GetCommentsResponseDto({
+      list: commentsList.map((item) => {
+        return {
+          id: item.id,
+          content: item.content,
+          replyTo: item.replyTo,
+          createdAt: item.createdAt,
+          deletedAt: item.deletedAt,
+          postId: item.postsID,
+          user: {
+            userId: item.users.id,
+            username: item.users.userName,
+            avatar: item.users.proFileImageURL,
+          },
+        };
+      }),
+    });
   }
 }
