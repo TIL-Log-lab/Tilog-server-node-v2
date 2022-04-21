@@ -11,7 +11,6 @@ export class CategoriesController {
 
   @getCategories()
   async getCategories() {
-    console.log(await this.categoriesService.getAllCategories());
     return new GetCategoriesResponseDto({
       list: await this.categoriesService.getAllCategories(),
     });
