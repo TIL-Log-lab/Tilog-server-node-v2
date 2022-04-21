@@ -20,7 +20,8 @@ class GetCommentsItem {
   @ApiProperty({ type: String })
   id: comments['id'];
 
-  content: comments['content'];
+  @ApiProperty({ type: String, nullable: true })
+  content: comments['content'] | null;
 
   @Transform(({ value }) => String(value))
   @ApiProperty({ type: String, nullable: true })

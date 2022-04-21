@@ -54,10 +54,17 @@ export class CommentsService {
 
     if (!hasPost) throw new NotFoundException(postNotFound);
 
-    return this.commentsRepository.findMany({
+    const commentsList = await this.commentsRepository.findMany({
       prismaConnection: this.prismaService,
       postId,
       replyTo,
+    });
+
+    return commentsList.map((item) => {
+      return {
+        ...item,
+        content: item.deletedAt ? null : item.content,
+      };
     });
   }
 }
