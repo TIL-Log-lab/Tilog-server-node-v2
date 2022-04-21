@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { users } from '@prisma/client';
 
 import { PrismaService } from '@app/library/prisma';
 import { CategoriesRepository } from '@api/categories/categories.repository';
@@ -12,5 +13,12 @@ export class CategoriesService {
 
   getAllCategories() {
     return this.categoriesRepository.getAll(this.prismaService);
+  }
+
+  getUserCategories(userId: users['id']) {
+    return this.categoriesRepository.getManyByUserIdGroupeByCategoryId(
+      this.prismaService,
+      userId,
+    );
   }
 }
