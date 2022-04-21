@@ -1,8 +1,8 @@
 import { Controller, Query } from '@nestjs/common';
 
 import {
-  getCategories,
-  getUserCategories,
+  GetCategories,
+  GetUserCategories,
 } from '@api/categories/categories.decorator';
 import { CategoriesService } from '@api/categories/categories.service';
 
@@ -16,14 +16,14 @@ import {
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @getCategories()
+  @GetCategories()
   async getCategories() {
     return new GetCategoriesResponseDto({
       list: await this.categoriesService.getAllCategories(),
     });
   }
 
-  @getUserCategories()
+  @GetUserCategories()
   async getUsersCategories(
     @Query() { userId }: GetUserCategoriesRequestQueryDto,
   ) {

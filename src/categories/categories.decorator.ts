@@ -4,7 +4,7 @@ import { ApiOkResponse } from '@nestjs/swagger';
 import { GetCategoriesResponseDto } from '@api/categories/dto/get-categories.dto';
 import { GetUserCategoriesResponseDto } from '@api/categories/dto/get-user-categories.dto';
 
-export const getCategories = () =>
+export const GetCategories = () =>
   applyDecorators(
     Get(),
     ApiOkResponse({
@@ -13,7 +13,7 @@ export const getCategories = () =>
     }),
   );
 
-export const getUserCategories = () =>
+export const GetUserCategories = () =>
   applyDecorators(
     Get('user'),
     ApiOkResponse({
