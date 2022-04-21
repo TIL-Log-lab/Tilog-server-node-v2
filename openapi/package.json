@@ -1,6 +1,6 @@
 {
   "name": "@til-log.lab/tilog-api",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "TILog-v2 openapi",
   "main": "./tilog-api/index.ts",
   "repository": {
