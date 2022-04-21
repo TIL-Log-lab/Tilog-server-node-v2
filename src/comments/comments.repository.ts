@@ -30,4 +30,24 @@ export class CommentsRepository {
       },
     });
   }
+
+  findMany({
+    prismaConnection,
+    postId,
+    replyTo,
+  }: {
+    prismaConnection: PrismaConnection;
+    postId: comments['postsID'];
+    replyTo: comments['replyTo'];
+  }) {
+    return prismaConnection.comments.findMany({
+      include: {
+        users: true,
+      },
+      where: {
+        postsID: postId,
+        replyTo: replyTo ?? null,
+      },
+    });
+  }
 }
