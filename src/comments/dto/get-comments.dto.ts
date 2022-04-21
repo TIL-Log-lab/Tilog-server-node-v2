@@ -20,6 +20,7 @@ class GetCommentsItem {
   @ApiProperty({ type: String })
   id: comments['id'];
 
+  // NOTE: 댓글이 삭제된 경우 댓글 내용을 null 처리하기 위해 null 허용
   @ApiProperty({ type: String, nullable: true })
   content: comments['content'] | null;
 
