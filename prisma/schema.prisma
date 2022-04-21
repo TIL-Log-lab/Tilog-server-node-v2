@@ -11,21 +11,21 @@ datasource db {
 model category {
   id           Int     @id @default(autoincrement()) @db.UnsignedInt
   categoryName String  @db.VarChar(30)
-  iconURL      String? @db.VarChar(300)
+  content      String? @db.VarChar(300)
   posts        posts[]
 }
 
 model comments {
-  id          BigInt    @id @default(autoincrement())
-  usersID     Int       @db.UnsignedInt
-  postsID     BigInt
-  content     String    @db.VarChar(300)
-  replyTo     BigInt?
-  createdAt   DateTime  @db.DateTime(0)
-  updatedAt   DateTime? @db.DateTime(0)
-  deletedAt   DateTime? @db.DateTime(0)
-  posts       posts     @relation(fields: [postsID], references: [id], onDelete: Cascade, map: "FK_comments_postsID_posts_id")
-  users       users     @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_comments_usersID_users_id")
+  id        BigInt    @id @default(autoincrement())
+  usersID   Int       @db.UnsignedInt
+  postsID   BigInt
+  content   String    @db.VarChar(300)
+  replyTo   BigInt?
+  createdAt DateTime  @db.DateTime(0)
+  updatedAt DateTime? @db.DateTime(0)
+  deletedAt DateTime? @db.DateTime(0)
+  posts     posts     @relation(fields: [postsID], references: [id], onDelete: Cascade, map: "FK_comments_postsID_posts_id")
+  users     users     @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_comments_usersID_users_id")
 
   @@index([postsID], map: "FK_comments_postsID_posts_id")
   @@index([usersID], map: "FK_comments_usersID_users_id")

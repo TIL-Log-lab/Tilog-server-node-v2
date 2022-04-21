@@ -11,6 +11,7 @@ import validationSchema from '@env/validationSchema';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CommentsModule } from './comments/comments.module';
     UsersModule,
     PostsModule,
     CommentsModule,
+    CategoriesModule,
   ],
   controllers: [],
   providers: [
