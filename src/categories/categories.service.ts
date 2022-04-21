@@ -1,6 +1,7 @@
-import { CategoriesRepository } from '@api/categories/categories.repository';
-import { PrismaService } from '@app/library/prisma';
 import { Injectable } from '@nestjs/common';
+
+import { PrismaService } from '@app/library/prisma';
+import { CategoriesRepository } from '@api/categories/categories.repository';
 
 @Injectable()
 export class CategoriesService {
