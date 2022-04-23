@@ -2,7 +2,11 @@ import { Body, Controller, Query, UnauthorizedException } from '@nestjs/common';
 
 import { CommentsService } from '@api/comments/comments.service';
 import { JwtUserId } from '@app/utils/decorators/jwt-user-Id.decorator';
-import { CreateComments, GetComments } from '@api/comments/comments.decorator';
+import {
+  CreateComments,
+  DeleteComment,
+  GetComments,
+} from '@api/comments/comments.decorator';
 
 import { TokenPayload } from '@app/utils/token/types/token.type';
 import { CreateCommentsRequestBodyDto } from '@api/comments/dto/create-comment.dto';
@@ -11,6 +15,7 @@ import {
   GetCommentsRequestQueryDto,
   GetCommentsResponseDto,
 } from '@api/comments/dto/get-comments.dto';
+import { DeleteCommentRequestDto } from '@api/comments/dto/delete-comment.dto';
 
 @Controller('comments')
 export class CommentsController {
@@ -54,5 +59,18 @@ export class CommentsController {
         };
       }),
     });
+  }
+
+  @DeleteComment()
+  async deleteComment(
+    @JwtUserId() { userId }: TokenPayload,
+    @Body() deleteCommentRequestDto: DeleteCommentRequestDto,
+  ) {
+    if (!userId) throw new UnauthorizedException(decodeAccessTokenFail);
+    await this.commentsService.deleteComment({
+      userId,
+      ...deleteCommentRequestDto,
+    });
+    return null;
   }
 }
