@@ -50,4 +50,40 @@ export class CommentsRepository {
       },
     });
   }
+
+  findOneByUserIdAndCommentId({
+    prismaConnection,
+    userId,
+    commentId,
+  }: {
+    prismaConnection: PrismaConnection;
+    userId: comments['usersID'];
+    commentId: comments['id'];
+  }) {
+    return prismaConnection.comments.findFirst({
+      where: {
+        id: commentId,
+        usersID: userId,
+        deletedAt: null,
+      },
+    });
+  }
+
+  softDeleteByUserIdAndCommentId({
+    prismaConnection,
+    userId,
+    commentId,
+  }: {
+    prismaConnection: PrismaConnection;
+    userId: comments['usersID'];
+    commentId: comments['id'];
+  }) {
+    return prismaConnection.comments.updateMany({
+      data: { deletedAt: now() },
+      where: {
+        id: commentId,
+        usersID: userId,
+      },
+    });
+  }
 }
