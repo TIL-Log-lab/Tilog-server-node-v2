@@ -91,4 +91,30 @@ export class CommentsService {
       commentId,
     });
   }
+
+  async updateComment({
+    userId,
+    commentId,
+    content,
+  }: {
+    userId: comments['usersID'];
+    commentId: comments['id'];
+    content: comments['content'];
+  }) {
+    const hasComment =
+      await this.commentsRepository.findOneByUserIdAndCommentId({
+        prismaConnection: this.prismaService,
+        userId,
+        commentId,
+      });
+
+    if (!hasComment) throw new NotFoundException(commentNotFound);
+
+    await this.commentsRepository.updateByUserIdAndCommentId({
+      prismaConnection: this.prismaService,
+      userId,
+      commentId,
+      content,
+    });
+  }
 }
