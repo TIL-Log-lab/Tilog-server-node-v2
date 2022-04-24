@@ -1,4 +1,4 @@
-import { applyDecorators, Delete, Get, Post } from '@nestjs/common';
+import { applyDecorators, Delete, Get, Post, Put } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 
 import { JwtAccessTokenGuard } from '@app/utils/guards/auth/jwt-access-token.guard';
@@ -26,6 +26,16 @@ export const DeleteComment = () =>
     JwtAccessTokenGuard(),
     ApiOkResponse({
       description: '댓글 삭제 성공',
+      type: undefined,
+    }),
+  );
+
+export const UpdateComment = () =>
+  applyDecorators(
+    Put(),
+    JwtAccessTokenGuard(),
+    ApiOkResponse({
+      description: '댓글 수정 성공',
       type: undefined,
     }),
   );
