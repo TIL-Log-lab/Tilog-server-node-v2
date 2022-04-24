@@ -86,4 +86,25 @@ export class CommentsRepository {
       },
     });
   }
+
+  updateByUserIdAndCommentId({
+    prismaConnection,
+    userId,
+    commentId,
+    content,
+  }: {
+    prismaConnection: PrismaConnection;
+    userId: comments['usersID'];
+    commentId: comments['id'];
+    content: comments['content'];
+  }) {
+    return prismaConnection.comments.updateMany({
+      data: { content, updatedAt: now() },
+      where: {
+        id: commentId,
+        usersID: userId,
+        deletedAt: null,
+      },
+    });
+  }
 }
