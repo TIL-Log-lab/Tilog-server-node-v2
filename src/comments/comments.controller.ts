@@ -6,6 +6,7 @@ import {
   CreateComments,
   DeleteComment,
   GetComments,
+  UpdateComment,
 } from '@api/comments/comments.decorator';
 
 import { TokenPayload } from '@app/utils/token/types/token.type';
@@ -16,6 +17,7 @@ import {
   GetCommentsResponseDto,
 } from '@api/comments/dto/get-comments.dto';
 import { DeleteCommentRequestDto } from '@api/comments/dto/delete-comment.dto';
+import { UpdateCommentRequestDto } from '@api/comments/dto/update-comment.dto';
 
 @Controller('comments')
 export class CommentsController {
@@ -72,5 +74,17 @@ export class CommentsController {
       ...deleteCommentRequestDto,
     });
     return null;
+  }
+
+  @UpdateComment()
+  async updateComment(
+    @JwtUserId() { userId }: TokenPayload,
+    @Body() updateCommentRequestDto: UpdateCommentRequestDto,
+  ) {
+    if (!userId) throw new UnauthorizedException(decodeAccessTokenFail);
+    await this.commentsService.updateComment({
+      userId,
+      ...updateCommentRequestDto,
+    });
   }
 }
