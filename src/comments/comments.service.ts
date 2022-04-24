@@ -1,4 +1,5 @@
 import { CommentsRepository } from '@api/comments/comments.repository';
+import { commentNotFound } from '@api/comments/errors/comments.error';
 import { postNotFound } from '@api/posts/errors/posts.error';
 import { PostsRepository } from '@api/posts/posts.repository';
 import { PrismaService } from '@app/library/prisma';
@@ -65,6 +66,29 @@ export class CommentsService {
         ...item,
         content: item.deletedAt ? null : item.content,
       };
+    });
+  }
+
+  async deleteComment({
+    userId,
+    commentId,
+  }: {
+    userId: comments['usersID'];
+    commentId: comments['id'];
+  }) {
+    const hasComment =
+      await this.commentsRepository.findOneByUserIdAndCommentId({
+        prismaConnection: this.prismaService,
+        userId,
+        commentId,
+      });
+
+    if (!hasComment) throw new NotFoundException(commentNotFound);
+
+    await this.commentsRepository.softDeleteByUserIdAndCommentId({
+      prismaConnection: this.prismaService,
+      userId,
+      commentId,
     });
   }
 }

@@ -1,4 +1,4 @@
-import { applyDecorators, Get, Post } from '@nestjs/common';
+import { applyDecorators, Delete, Get, Post } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 
 import { JwtAccessTokenGuard } from '@app/utils/guards/auth/jwt-access-token.guard';
@@ -17,5 +17,15 @@ export const GetComments = () =>
     ApiOkResponse({
       description: '댓글 리스트 로드 성공',
       type: GetCommentsResponseDto,
+    }),
+  );
+
+export const DeleteComment = () =>
+  applyDecorators(
+    Delete(),
+    JwtAccessTokenGuard(),
+    ApiOkResponse({
+      description: '댓글 삭제 성공',
+      type: undefined,
     }),
   );
