@@ -13,3 +13,16 @@ export const commentNotFound: ExceptionMessageInterface = {
     },
   ],
 };
+
+export const unauthorizedComment: ExceptionMessageInterface = {
+  message: [
+    {
+      countryFlag: COUNTRY.ko,
+      message: '수정 권한이 없는 댓글입니다.',
+    },
+    {
+      countryFlag: COUNTRY.en,
+      message: `This is a comment you don't have permission to edit.`,
+    },
+  ],
+};
