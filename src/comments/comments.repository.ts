@@ -107,4 +107,18 @@ export class CommentsRepository {
       },
     });
   }
+
+  findOneByCommentId({
+    prismaConnection,
+    commentId,
+  }: {
+    prismaConnection: PrismaConnection;
+    commentId: comments['id'];
+  }) {
+    return prismaConnection.comments.findUnique({
+      where: {
+        id: commentId,
+      },
+    });
+  }
 }
