@@ -1,9 +1,16 @@
 import { CommentsRepository } from '@api/comments/comments.repository';
-import { commentNotFound } from '@api/comments/errors/comments.error';
+import {
+  commentNotFound,
+  unauthorizedComment,
+} from '@api/comments/errors/comments.error';
 import { postNotFound } from '@api/posts/errors/posts.error';
 import { PostsRepository } from '@api/posts/posts.repository';
 import { PrismaService } from '@app/library/prisma';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { comments } from '@prisma/client';
 
 @Injectable()
@@ -89,6 +96,39 @@ export class CommentsService {
       prismaConnection: this.prismaService,
       userId,
       commentId,
+    });
+  }
+
+  async updateComment({
+    userId,
+    commentId,
+    content,
+  }: {
+    userId: comments['usersID'];
+    commentId: comments['id'];
+    content: comments['content'];
+  }) {
+    const hasComment = await this.commentsRepository.findOneByCommentId({
+      prismaConnection: this.prismaService,
+      commentId,
+    });
+
+    if (!hasComment) throw new NotFoundException(commentNotFound);
+
+    const hasUserComment =
+      await this.commentsRepository.findOneByUserIdAndCommentId({
+        prismaConnection: this.prismaService,
+        userId,
+        commentId,
+      });
+
+    if (!hasUserComment) throw new UnauthorizedException(unauthorizedComment);
+
+    await this.commentsRepository.updateByUserIdAndCommentId({
+      prismaConnection: this.prismaService,
+      userId,
+      commentId,
+      content,
     });
   }
 }
