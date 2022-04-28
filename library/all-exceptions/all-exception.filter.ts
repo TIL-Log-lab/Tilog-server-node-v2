@@ -45,7 +45,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
       requestLocation: request.url,
       message: isCustomException ? customExceptionData : undefined,
     };
-    console.log(customExceptionData);
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatusCode);
   }
 }
