@@ -31,6 +31,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       : null;
     // NOTE: exception-message.interface를 상속받는 object인지 확인한다
     const isCustomException = isExceptionMessageInterface(customExceptionData);
+    console.log(isCustomException);
 
     // TODO: 500 및 에러 핸들링 되지 않은 모든 에러 메시지를 모니터링한다 추후 APM 연동 필요
     if (
@@ -42,8 +43,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const responseBody = {
       statusCode: httpStatusCode,
       requestLocation: request.url,
-      message: isCustomException ? customExceptionData.message : undefined,
+      message: isCustomException ? customExceptionData : undefined,
     };
+    console.log(customExceptionData);
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatusCode);
   }
 }

@@ -1,9 +1,6 @@
 import { COUNTRY } from '@app/utils/';
 
-export interface ExceptionMessageInterface {
-  message: ExceptionMessageItemInterface;
-}
-export type ExceptionMessageItemInterface = Partial<
+export type ExceptionMessageInterface = Partial<
   Record<typeof COUNTRY[keyof typeof COUNTRY], string>
 >;
 
