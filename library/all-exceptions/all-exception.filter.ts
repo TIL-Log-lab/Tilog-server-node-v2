@@ -35,7 +35,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     // TODO: 500 및 에러 핸들링 되지 않은 모든 에러 메시지를 모니터링한다 추후 APM 연동 필요
     if (
       httpStatusCode === HttpStatus.INTERNAL_SERVER_ERROR ||
-      !customExceptionData
+      !isCustomException
     )
       Logger.error(exception);
 
