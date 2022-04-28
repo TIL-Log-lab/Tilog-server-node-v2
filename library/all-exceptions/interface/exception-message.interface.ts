@@ -11,8 +11,5 @@ export const isExceptionMessageInterface = (
   if (!object) return false;
   if (!(object instanceof Object)) return false;
 
-  return Object.keys(object).some((key) => {
-    if (!(key in COUNTRY)) return false;
-    return true;
-  });
+  return Object.keys(object).some((key) => key in COUNTRY);
 };
