@@ -41,13 +41,11 @@ import { CategoriesModule } from './categories/categories.module';
         whitelist: true,
         forbidUnknownValues: true,
         exceptionFactory: (errors: ValidationError[]) => {
-          console.log(errors);
           if (!errors[0]?.constraints) return new BadRequestException();
           const firstKey = Object.keys(errors[0].constraints)[0];
           const errorMessage: ExceptionMessageInterface = {
             [COUNTRY.en]: errors[0].constraints[`${firstKey}`],
           };
-          console.log(errorMessage);
           return new BadRequestException(errorMessage);
         },
       }),
