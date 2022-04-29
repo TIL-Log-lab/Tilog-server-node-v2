@@ -18,27 +18,31 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const { httpAdapter } = this.httpAdapterHost;
 
     const ctx = host.switchToHttp();
-
     const request = ctx.getRequest<Request>();
 
+    // NOTE: HttpException이 아니면 500코드를 할당한다
     const isHttpException = exception instanceof HttpException;
     const httpStatusCode = isHttpException
       ? exception.getStatus()
       : HttpStatus.INTERNAL_SERVER_ERROR;
-
+    // NOTE: HttpException일 경우에만 에러 메시지를 가져온다
     const customExceptionData = isHttpException
       ? exception.getResponse()
       : null;
-    // NOTE: exception-message.interface를 상속받는 object인지 확인합니다
+    // NOTE: exception-message.interface를 상속받는 object인지 확인한다
     const isCustomException = isExceptionMessageInterface(customExceptionData);
 
-    // TODO: 개발 참고용, 배포시 제외
-    Logger.error(JSON.stringify(customExceptionData));
+    // TODO: 500 및 에러 핸들링 되지 않은 모든 에러 메시지를 모니터링한다 추후 APM 연동 필요
+    if (
+      httpStatusCode === HttpStatus.INTERNAL_SERVER_ERROR ||
+      !isCustomException
+    )
+      Logger.error(exception);
 
     const responseBody = {
       statusCode: httpStatusCode,
       requestLocation: request.url,
-      message: isCustomException ? customExceptionData.message : undefined,
+      message: isCustomException ? customExceptionData : undefined,
     };
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatusCode);
   }
