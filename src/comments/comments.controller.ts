@@ -1,7 +1,7 @@
 import { Body, Controller, Query, UnauthorizedException } from '@nestjs/common';
 
 import { CommentsService } from '@api/comments/comments.service';
-import { JwtUserId } from '@app/utils/decorators/jwt-user-Id.decorator';
+import { JwtUserId } from '@app/library/decorators/jwt-user-Id.decorator';
 import {
   CreateComments,
   DeleteComment,
@@ -9,9 +9,9 @@ import {
   UpdateComment,
 } from '@api/comments/comments.decorator';
 
-import { TokenPayload } from '@app/utils/token/types/token.type';
+import { TokenPayload } from '@app/library/token/type/token.type';
 import { CreateCommentsRequestBodyDto } from '@api/comments/dto/create-comment.dto';
-import { decodeAccessTokenFail } from '@api/users/auth/errors/users-auth.error';
+import { decodeAccessTokenFail } from '@api/users/auth/error/users-auth.error';
 import {
   GetCommentsRequestQueryDto,
   GetCommentsResponseDto,

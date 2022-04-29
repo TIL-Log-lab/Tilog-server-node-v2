@@ -6,7 +6,7 @@ import {
   UnsetLike,
 } from '@api/posts/like/posts-like.decorator';
 import { PostsLikeService } from '@api/posts/like/posts-like.service';
-import { JwtUserId } from '@app/utils/decorators/jwt-user-Id.decorator';
+import { JwtUserId } from '@app/library/decorators/jwt-user-Id.decorator';
 
 import {
   HasLikedRequestDto,
@@ -14,8 +14,8 @@ import {
 } from '@api/posts/like/dto/has-liked.dto';
 import { SetLikedRequestDto } from '@api/posts/like/dto/set-like.dto';
 import { UnsetLikedRequestDto } from '@api/posts/like/dto/unset-like.dto';
-import { TokenPayload } from '@app/utils/token/types/token.type';
-import { unauthorizedUser } from '@api/users/auth/errors/users-auth.error';
+import { TokenPayload } from '@app/library/token/type/token.type';
+import { unauthorizedUser } from '@api/users/auth/error/users-auth.error';
 
 @Controller('posts/like')
 export class PostsLikeController {

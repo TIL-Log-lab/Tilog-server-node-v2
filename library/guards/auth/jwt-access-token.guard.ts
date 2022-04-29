@@ -7,7 +7,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
-import { decodeAccessTokenFail } from '@api/users/auth/errors/users-auth.error';
+import { decodeAccessTokenFail } from '@api/users/auth/error/users-auth.error';
 
 @Injectable()
 class JwtAccessToken extends AuthGuard('jwtAccessToken') {

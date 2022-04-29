@@ -1,7 +1,7 @@
 import { ApiOkResponse } from '@nestjs/swagger';
 import { applyDecorators, Delete, Get, Post } from '@nestjs/common';
 
-import { GithubAuthGuard } from '@app/utils/guards/auth/github-auth.guard';
+import { GithubAuthGuard } from '@app/library/guards/auth/github-auth.guard';
 
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
 

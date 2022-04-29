@@ -3,7 +3,10 @@ import { category, posts, users } from '@prisma/client';
 import { Transform, Type } from 'class-transformer';
 import { IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
 
-import { PostSearchDateScope, PostSearchSortScope } from '@app/utils/';
+import {
+  PostSearchDateScope,
+  PostSearchSortScope,
+} from '@app/library/constants';
 
 export class GetPostsRequestQueryDto {
   @IsEnum(PostSearchDateScope)

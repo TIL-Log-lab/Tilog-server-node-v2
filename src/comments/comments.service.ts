@@ -2,7 +2,7 @@ import { CommentsRepository } from '@api/comments/comments.repository';
 import {
   commentNotFound,
   unauthorizedComment,
-} from '@api/comments/errors/comments.error';
+} from '@api/comments/error/comments.error';
 import { postNotFound } from '@api/posts/errors/posts.error';
 import { PostsRepository } from '@api/posts/posts.repository';
 import { PrismaService } from '@app/library/prisma';

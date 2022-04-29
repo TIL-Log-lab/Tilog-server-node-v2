@@ -11,7 +11,7 @@ import { UsersAuthRepository } from '@api/users/auth/users-auth.repository';
 import {
   decodeRefreshTokenFail,
   deviceTypeInjectFail,
-} from '@api/users/auth/errors/users-auth.error';
+} from '@api/users/auth/error/users-auth.error';
 
 @Injectable()
 export class UsersAuthService {

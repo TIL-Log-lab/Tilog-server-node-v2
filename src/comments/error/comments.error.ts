@@ -1,5 +1,5 @@
 import { ExceptionMessageInterface } from '@app/library/all-exceptions';
-import { COUNTRY } from '@app/utils/';
+import { COUNTRY } from '@app/library/constants';
 
 export const commentNotFound: ExceptionMessageInterface = {
   [COUNTRY.ko]: '존재하지 않는 댓글입니다.',

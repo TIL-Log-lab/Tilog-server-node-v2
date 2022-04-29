@@ -6,14 +6,14 @@ import { PrismaModule } from '@app/library/prisma';
 import { UsersAuthController } from '@api/users/auth/users-auth.controller';
 import { UsersRepository } from '@api/users/users.repository';
 import { UsersAuthRepository } from '@api/users/auth/users-auth.repository';
-import { GithubStrategy } from '@app/utils/guards/auth/strategy/github.strategy';
+import { GithubStrategy } from '@app/library/guards/auth/strategy/github.strategy';
 import { UsersAuthService } from '@api/users/auth/users-auth.service';
 import { UsersService } from '@api/users/users.service';
-import { CookieService } from '@app/utils/cookie/cookie.service';
-import { JwtAccessTokenStrategy } from '@app/utils/guards/auth/strategy/jwt-access-token.strategy';
+import { JwtAccessTokenStrategy } from '@app/library/guards/auth/strategy/jwt-access-token.strategy';
 import { UsersController } from '@api/users/users.controller';
 import { UsersSettingRepository } from '@api/users/setting/users-setting.repository';
 import { UsersSettingService } from '@api/users/setting/users-setting.service';
+import { CookieModule } from '@app/library/cookie/cookie.module';
 
 @Module({
   imports: [
@@ -30,6 +30,7 @@ import { UsersSettingService } from '@api/users/setting/users-setting.service';
       inject: [ConfigService],
     }),
     PrismaModule,
+    CookieModule,
   ],
   providers: [
     UsersAuthService,
@@ -38,7 +39,6 @@ import { UsersSettingService } from '@api/users/setting/users-setting.service';
     JwtAccessTokenStrategy,
     UsersService,
     UsersRepository,
-    CookieService,
     UsersSettingRepository,
     UsersSettingService,
   ],

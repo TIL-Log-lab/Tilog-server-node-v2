@@ -10,7 +10,7 @@ import { Response, Request } from 'express';
 import { ConfigService } from '@nestjs/config';
 
 import { UsersAuthService } from '@api/users/auth/users-auth.service';
-import { CookieService } from '@app/utils/cookie/cookie.service';
+import { CookieService } from '@app/library/cookie/cookie.service';
 import {
   GetAccessTokenUsingRefreshToken,
   GithubLogin,
@@ -18,8 +18,8 @@ import {
   Logout,
 } from '@api/users/auth/users-auth.decorator';
 
-import { UpSertUserAndGetIdResponse } from '@api/users/types/users.service.type';
-import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
+import { UpSertUserAndGetIdResponse } from '@api/users/type/users.service.type';
+import { hasNotRefreshToken } from '@api/users/auth/error/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
 
 @Controller('auth')

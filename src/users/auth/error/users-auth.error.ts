@@ -1,5 +1,5 @@
 import { ExceptionMessageInterface } from '@app/library/all-exceptions';
-import { COUNTRY } from '@app/utils/';
+import { COUNTRY } from '@app/library/constants';
 
 export const decodeRefreshTokenFail: ExceptionMessageInterface = {
   [COUNTRY.ko]: '리프레시 토큰 인증에 실패했습니다.',
