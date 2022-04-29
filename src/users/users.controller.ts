@@ -6,7 +6,7 @@ import { JwtUserId } from '@app/library/decorators/jwt-user-Id.decorator';
 
 import { SetSettingRequestBodyDto } from '@api/users/dto/set-setting.dto';
 import { TokenPayload } from '@app/library/token/type/token.type';
-import { unauthorizedUser } from '@api/users/auth/errors/users-auth.error';
+import { unauthorizedUser } from '@api/users/auth/error/users-auth.error';
 import { GetMeResponseDto } from '@api/users/dto/get-me.dto';
 
 @Controller('users')

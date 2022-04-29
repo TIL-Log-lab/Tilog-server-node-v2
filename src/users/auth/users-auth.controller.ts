@@ -19,7 +19,7 @@ import {
 } from '@api/users/auth/users-auth.decorator';
 
 import { UpSertUserAndGetIdResponse } from '@api/users/type/users.service.type';
-import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
+import { hasNotRefreshToken } from '@api/users/auth/error/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
 
 @Controller('auth')
