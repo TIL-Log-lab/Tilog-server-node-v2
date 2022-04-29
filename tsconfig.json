@@ -22,12 +22,6 @@
     "strictPropertyInitialization": false,
     // NOTE: @api: 비즈니스 로직, @app: 기타 라이브러리 파일, 경로가 깊은 순서대로 정렬
     "paths": {
-      "@app/utils/":[
-        "./library/utils"
-      ],
-      "@app/utils/*":[
-        "./library/utils/*"
-      ],
       "@app/library/":[
         "./library/"
       ],

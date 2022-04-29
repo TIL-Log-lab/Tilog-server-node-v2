@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { posts } from '@prisma/client';
 
+import { arrayOfLastDate, now } from '@app/library/date';
+
 import {
-  arrayOfLastDate,
-  now,
   PostSearchDateScope,
   PostSearchSortScope,
-} from '@app/utils/';
-
+} from '@app/library/constants';
 import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()

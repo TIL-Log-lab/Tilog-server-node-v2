@@ -1,7 +1,7 @@
 import { applyDecorators, Get, Put } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 
-import { JwtAccessTokenGuard } from '@app/utils/guards/auth/jwt-access-token.guard';
+import { JwtAccessTokenGuard } from '@app/library/guards/auth/jwt-access-token.guard';
 import { GetMeResponseDto } from '@api/users/dto/get-me.dto';
 
 export const SetSetting = () =>

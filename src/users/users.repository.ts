@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OauthProvider, users } from '@prisma/client';
 
-import { now } from '@app/utils/';
+import { now } from '@app/library/date';
 
 import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 

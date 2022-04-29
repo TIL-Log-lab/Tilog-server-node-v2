@@ -1,5 +1,5 @@
 import { ExceptionMessageInterface } from '@app/library/all-exceptions';
-import { COUNTRY } from '@app/utils/';
+import { COUNTRY } from '@app/library/constants';
 
 export const postNotFound: ExceptionMessageInterface = {
   [COUNTRY.ko]: '포스트를 찾지 못했습니다',

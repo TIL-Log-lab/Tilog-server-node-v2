@@ -1,4 +1,4 @@
-import { COUNTRY } from '@app/utils/';
+import { COUNTRY } from '@app/library/constants';
 
 export type ExceptionMessageInterface = Partial<
   Record<typeof COUNTRY[keyof typeof COUNTRY], string>

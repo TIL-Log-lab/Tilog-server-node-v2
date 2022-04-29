@@ -3,7 +3,7 @@ import { ApiOkResponse } from '@nestjs/swagger';
 
 import { HasLikedResponseDto } from '@api/posts/like/dto/has-liked.dto';
 
-import { JwtAccessTokenGuard } from '@app/utils/guards/auth/jwt-access-token.guard';
+import { JwtAccessTokenGuard } from '@app/library/guards/auth/jwt-access-token.guard';
 
 export const HasLiked = () =>
   applyDecorators(

@@ -13,7 +13,8 @@ import {
   ExceptionMessageInterface,
 } from '@app/library/all-exceptions';
 import validationSchema from '@env/validationSchema';
-import { COUNTRY } from '@app/utils/';
+
+import { COUNTRY } from '@app/library/constants';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';

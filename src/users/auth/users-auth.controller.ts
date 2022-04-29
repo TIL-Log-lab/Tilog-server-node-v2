@@ -10,7 +10,7 @@ import { Response, Request } from 'express';
 import { ConfigService } from '@nestjs/config';
 
 import { UsersAuthService } from '@api/users/auth/users-auth.service';
-import { CookieService } from '@app/utils/cookie/cookie.service';
+import { CookieService } from '@app/library/cookie/cookie.service';
 import {
   GetAccessTokenUsingRefreshToken,
   GithubLogin,

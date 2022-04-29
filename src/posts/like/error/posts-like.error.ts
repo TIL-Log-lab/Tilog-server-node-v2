@@ -1,5 +1,5 @@
 import { ExceptionMessageInterface } from '@app/library/all-exceptions';
-import { COUNTRY } from '@app/utils/';
+import { COUNTRY } from '@app/library/constants';
 
 export const alreadySetLike: ExceptionMessageInterface = {
   [COUNTRY.ko]: '이미 설정되었습니다.',
