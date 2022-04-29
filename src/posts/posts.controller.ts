@@ -16,7 +16,7 @@ import { JwtUserId } from '@app/library/decorators/jwt-user-Id.decorator';
 
 import { CreatePostRequestBodyDto } from '@api/posts/dto/create-post.dto';
 import { unauthorizedUser } from '@api/users/auth/errors/users-auth.error';
-import { TokenPayload } from '@app/library/token/types/token.type';
+import { TokenPayload } from '@app/library/token/type/token.type';
 import {
   GetPostDetailRequestQueryDto,
   GetPostDetailResponseDto,

@@ -18,7 +18,7 @@ import {
   Logout,
 } from '@api/users/auth/users-auth.decorator';
 
-import { UpSertUserAndGetIdResponse } from '@api/users/types/users.service.type';
+import { UpSertUserAndGetIdResponse } from '@api/users/type/users.service.type';
 import { hasNotRefreshToken } from '@api/users/auth/errors/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
 

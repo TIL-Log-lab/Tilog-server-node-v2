@@ -9,7 +9,7 @@ import {
   UpdateComment,
 } from '@api/comments/comments.decorator';
 
-import { TokenPayload } from '@app/library/token/types/token.type';
+import { TokenPayload } from '@app/library/token/type/token.type';
 import { CreateCommentsRequestBodyDto } from '@api/comments/dto/create-comment.dto';
 import { decodeAccessTokenFail } from '@api/users/auth/errors/users-auth.error';
 import {
