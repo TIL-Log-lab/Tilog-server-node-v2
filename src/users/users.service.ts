@@ -3,6 +3,7 @@ import { OauthProvider, users } from '@prisma/client';
 
 import { PrismaService } from '@app/library/prisma';
 import { UsersRepository } from '@api/users/users.repository';
+import { UpSertUserAndGetIdResponse } from '@api/users/type/users.service.type';
 
 @Injectable()
 export class UsersService {
@@ -21,7 +22,7 @@ export class UsersService {
     provider: OauthProvider;
     userName: users['userName'];
     proFileImageURL: users['proFileImageURL'];
-  }) {
+  }): Promise<UpSertUserAndGetIdResponse> {
     const findUserResult = await this.usersRepository.findIdByProviderServiceId(
       {
         prismaConnection: this.prismaService,
