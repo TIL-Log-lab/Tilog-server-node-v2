@@ -21,6 +21,7 @@ import {
 import { UpSertUserAndGetIdResponse } from '@api/users/type/users.service.type';
 import { hasNotRefreshToken } from '@api/users/auth/error/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
+import { ApiParam } from '@nestjs/swagger';
 
 @Controller('auth')
 export class UsersAuthController {
@@ -36,6 +37,7 @@ export class UsersAuthController {
   }
 
   @GithubLoginCallback()
+  @ApiParam({ name: 'user-agent', required: false })
   async githubLoginCallback(
     @Req() { user }: { user: UpSertUserAndGetIdResponse },
     @Ip() userIp: string,
@@ -56,6 +58,7 @@ export class UsersAuthController {
   }
 
   @GetAccessTokenUsingRefreshToken()
+  @ApiParam({ name: 'user-agent', required: false })
   async getAccessTokenUsingRefreshToken(
     @Req() request: Request,
     @Headers('user-agent') userAgent: string,
