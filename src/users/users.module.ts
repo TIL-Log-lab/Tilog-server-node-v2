@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { PrismaModule } from '@app/library/prisma';
 import { UsersAuthController } from '@api/users/auth/users-auth.controller';
@@ -14,24 +12,10 @@ import { UsersController } from '@api/users/users.controller';
 import { UsersSettingRepository } from '@api/users/setting/users-setting.repository';
 import { UsersSettingService } from '@api/users/setting/users-setting.service';
 import { CookieModule } from '@app/library/cookie/cookie.module';
+import { JwtTokenModule } from '@app/library/jwt/jwt-token.module';
 
 @Module({
-  imports: [
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
-        return {
-          secret: configService.get<string>('JWT_SECRET_KEY'),
-          signOptions: {
-            expiresIn: configService.get<string>('JWT_EXPIRES_IN'),
-          },
-        };
-      },
-      inject: [ConfigService],
-    }),
-    PrismaModule,
-    CookieModule,
-  ],
+  imports: [PrismaModule, CookieModule, JwtTokenModule],
   providers: [
     UsersAuthService,
     UsersAuthRepository,

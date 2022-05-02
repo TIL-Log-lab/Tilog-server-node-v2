@@ -12,12 +12,14 @@ import {
   decodeRefreshTokenFail,
   deviceTypeInjectFail,
 } from '@api/users/auth/error/users-auth.error';
+import { JwtTokenService } from '@app/library/jwt/jwt-token.service';
 
 @Injectable()
 export class UsersAuthService {
   constructor(
     private readonly usersAuthRepository: UsersAuthRepository,
     private readonly prismaService: PrismaService,
+    private readonly jwtTokenService: JwtTokenService,
   ) {}
 
   private parseDeviceType(userAgent: string) {
@@ -38,7 +40,7 @@ export class UsersAuthService {
     userIp: usersAuth['userIp'];
   }) {
     const userDevice = this.parseDeviceType(userAgent)[0] ?? null;
-    const refreshToken = this.usersAuthRepository.generateRefreshToken({
+    const refreshToken = this.jwtTokenService.generateRefreshToken({
       userId: id,
     });
 
@@ -67,7 +69,7 @@ export class UsersAuthService {
   ) {
     // NOTE: 리프레시 토큰 복호화 시도
     try {
-      this.usersAuthRepository.decodeRefreshToken(refreshToken);
+      this.jwtTokenService.decodeRefreshToken(refreshToken);
     } catch (error) {
       await this.usersAuthRepository.deleteByRefreshToken({
         prismaConnection: this.prismaService,
@@ -94,7 +96,7 @@ export class UsersAuthService {
       throw new UnauthorizedException(decodeRefreshTokenFail);
     }
     // NOTE: 엑세스 토큰 발급
-    return this.usersAuthRepository.generateAccessToken({
+    return this.jwtTokenService.generateAccessToken({
       userId: refreshTokenHistory.userId,
     });
   }
