@@ -50,11 +50,7 @@ export class UsersAuthController {
       userAgent,
     });
     // NOTE: RefreshTokenCookiePayload 준수
-    response.cookie(
-      'refreshToken',
-      refreshToken,
-      this.cookieService.refreshCookieOptions(),
-    );
+    this.cookieService.setRefreshTokenCookie({ response, refreshToken });
     return null;
   }
 
@@ -67,6 +63,8 @@ export class UsersAuthController {
     if (!this.cookieService.isInRefreshTokenCookie(request.cookies))
       throw new UnauthorizedException(hasNotRefreshToken);
     const token = request.cookies.refreshToken;
+    // NOTE: 쿠키가 빈 문자열인지 확인한다
+    if (token === '') throw new UnauthorizedException(hasNotRefreshToken);
 
     return new GetAccessTokenUsingRefreshTokenResponse({
       accessToken:
@@ -84,13 +82,13 @@ export class UsersAuthController {
   ) {
     if (!this.cookieService.isInRefreshTokenCookie(request.cookies))
       throw new UnauthorizedException(hasNotRefreshToken);
+
     const token = request.cookies.refreshToken;
+    // NOTE: 쿠키가 빈 문자열인지 확인한다
+    if (token === '') throw new UnauthorizedException(hasNotRefreshToken);
+
     await this.usersAuthService.deleteRefreshTokenHistory(token);
-    // NOTE: RefreshTokenCookiePayload 준수
-    response.clearCookie(
-      'refreshToken',
-      this.cookieService.refreshCookieOptions(),
-    );
+    this.cookieService.clearRefreshTokenCookie({ response });
 
     return null;
   }
