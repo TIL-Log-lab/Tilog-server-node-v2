@@ -14,7 +14,7 @@ import {
 } from '@api/posts/like/dto/has-liked.dto';
 import { SetLikedRequestDto } from '@api/posts/like/dto/set-like.dto';
 import { UnsetLikedRequestDto } from '@api/posts/like/dto/unset-like.dto';
-import { TokenPayload } from '@app/library/token/type/token.type';
+import { TokenPayload } from '@app/library/jwt/type/token.type';
 import { unauthorizedUser } from '@api/users/auth/error/users-auth.error';
 
 @Controller('posts/like')
