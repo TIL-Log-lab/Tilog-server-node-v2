@@ -10,11 +10,6 @@ import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()
 export class UsersAuthRepository {
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly jwtService: JwtService,
-  ) {}
-
   // NOTE: UserAuth 테이블에 리프레시 토큰 히스토리를 생성합니다
   createHistory({
     prismaConnection,
@@ -58,31 +53,5 @@ export class UsersAuthRepository {
     refreshToken: usersAuth['refreshToken'];
   }) {
     return prismaConnection.usersAuth.deleteMany({ where: { refreshToken } });
-  }
-
-  generateAccessToken(payload: TokenPayload) {
-    return this.jwtService.sign(payload, {
-      secret: this.configService.get<string>('JWT_SECRET_KEY'),
-      expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
-    });
-  }
-
-  generateRefreshToken(payload: TokenPayload) {
-    return this.jwtService.sign(payload, {
-      secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
-    });
-  }
-
-  decodeAccessToken(accessToken: string) {
-    return this.jwtService.verify<TokenPayload>(accessToken, {
-      secret: this.configService.get<string>('JWT_SECRET_KEY'),
-    });
-  }
-
-  decodeRefreshToken(refreshToken: string) {
-    return this.jwtService.verify<TokenPayload>(refreshToken, {
-      secret: this.configService.get<string>('JWT_REFRESH_SECRET_KEY'),
-    });
   }
 }
