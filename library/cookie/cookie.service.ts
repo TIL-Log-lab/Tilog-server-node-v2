@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CookieOptions } from 'express';
 
-interface TilogCookie {
+interface RefreshTokenCookiePayload {
   refreshToken: string;
 }
 
@@ -27,7 +27,7 @@ export class CookieService {
     };
   }
 
-  isRefreshTokenCookie(object: any): object is TilogCookie {
+  isInRefreshTokenCookie(object: any): object is RefreshTokenCookiePayload {
     if (!object) return false;
     return 'refreshToken' in object;
   }
