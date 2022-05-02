@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
 import { usersAuth } from '@prisma/client';
 
 import { now } from '@app/library/date';
 
-import { TokenPayload } from '@app/library/jwt/type/token.type';
 import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()
