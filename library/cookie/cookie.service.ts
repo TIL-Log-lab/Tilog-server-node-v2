@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { CookieOptions } from 'express';
+import { CookieOptions, Response } from 'express';
 
 interface RefreshTokenCookiePayload {
   refreshToken: string;
@@ -10,7 +10,25 @@ interface RefreshTokenCookiePayload {
 export class CookieService {
   constructor(private readonly configService: ConfigService) {}
 
-  refreshCookieOptions(): CookieOptions {
+  setRefreshTokenCookie({
+    response,
+    refreshToken,
+  }: {
+    response: Response;
+    refreshToken: string;
+  }) {
+    return response.cookie(
+      'refreshToken',
+      refreshToken,
+      this.refreshCookieOptions(),
+    );
+  }
+
+  clearRefreshTokenCookie({ response }: { response: Response }) {
+    return response.clearCookie('refreshToken', this.refreshCookieOptions());
+  }
+
+  private refreshCookieOptions(): CookieOptions {
     return {
       httpOnly: this.configService.get<boolean>(
         'REFRESH_COOKIE_HTTP_ONLY',
