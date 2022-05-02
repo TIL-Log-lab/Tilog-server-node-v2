@@ -49,6 +49,7 @@ export class UsersAuthController {
       userIp,
       userAgent,
     });
+    // NOTE: RefreshTokenCookiePayload 준수
     response.cookie(
       'refreshToken',
       refreshToken,
@@ -63,7 +64,7 @@ export class UsersAuthController {
     @Req() request: Request,
     @Headers('user-agent') userAgent: string,
   ) {
-    if (!this.cookieService.isRefreshTokenCookie(request.cookies))
+    if (!this.cookieService.isInRefreshTokenCookie(request.cookies))
       throw new UnauthorizedException(hasNotRefreshToken);
     const token = request.cookies.refreshToken;
 
@@ -81,11 +82,11 @@ export class UsersAuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ) {
-    if (!this.cookieService.isRefreshTokenCookie(request.cookies))
+    if (!this.cookieService.isInRefreshTokenCookie(request.cookies))
       throw new UnauthorizedException(hasNotRefreshToken);
     const token = request.cookies.refreshToken;
     await this.usersAuthService.deleteRefreshTokenHistory(token);
-
+    // NOTE: RefreshTokenCookiePayload 준수
     response.clearCookie(
       'refreshToken',
       this.cookieService.refreshCookieOptions(),
