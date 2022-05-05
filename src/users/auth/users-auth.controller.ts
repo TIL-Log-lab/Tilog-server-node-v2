@@ -18,9 +18,10 @@ import {
   Logout,
 } from '@api/users/auth/users-auth.decorator';
 
-import { UpSertUserAndGetIdResponse } from '@api/users/type/users.service.type';
+import { UpsertUserAndGetIdResponse } from '@api/users/type/users.service.type';
 import { hasNotRefreshToken } from '@api/users/auth/error/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
+import { ApiParam } from '@nestjs/swagger';
 
 @Controller('auth')
 export class UsersAuthController {
@@ -36,8 +37,9 @@ export class UsersAuthController {
   }
 
   @GithubLoginCallback()
+  @ApiParam({ name: 'user-agent', required: false })
   async githubLoginCallback(
-    @Req() { user }: { user: UpSertUserAndGetIdResponse },
+    @Req() { user }: { user: UpsertUserAndGetIdResponse },
     @Ip() userIp: string,
     @Headers('user-agent') userAgent: string,
     @Res({ passthrough: true }) response: Response,
@@ -47,22 +49,22 @@ export class UsersAuthController {
       userIp,
       userAgent,
     });
-    response.cookie(
-      'refreshToken',
-      refreshToken,
-      this.cookieService.refreshCookieOptions(),
-    );
+    // NOTE: RefreshTokenCookiePayload 준수
+    this.cookieService.setRefreshTokenCookie({ response, refreshToken });
     return null;
   }
 
   @GetAccessTokenUsingRefreshToken()
+  @ApiParam({ name: 'user-agent', required: false })
   async getAccessTokenUsingRefreshToken(
     @Req() request: Request,
     @Headers('user-agent') userAgent: string,
   ) {
-    if (!this.cookieService.isRefreshTokenCookie(request.cookies))
+    if (!this.cookieService.isInRefreshTokenCookie(request.cookies))
       throw new UnauthorizedException(hasNotRefreshToken);
     const token = request.cookies.refreshToken;
+    // NOTE: 쿠키가 빈 문자열인지 확인한다
+    if (token === '') throw new UnauthorizedException(hasNotRefreshToken);
 
     return new GetAccessTokenUsingRefreshTokenResponse({
       accessToken:
@@ -78,15 +80,15 @@ export class UsersAuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ) {
-    if (!this.cookieService.isRefreshTokenCookie(request.cookies))
+    if (!this.cookieService.isInRefreshTokenCookie(request.cookies))
       throw new UnauthorizedException(hasNotRefreshToken);
-    const token = request.cookies.refreshToken;
-    await this.usersAuthService.deleteRefreshTokenHistory(token);
 
-    response.clearCookie(
-      'refreshToken',
-      this.cookieService.refreshCookieOptions(),
-    );
+    const token = request.cookies.refreshToken;
+    // NOTE: 쿠키가 빈 문자열인지 확인한다
+    if (token === '') throw new UnauthorizedException(hasNotRefreshToken);
+
+    await this.usersAuthService.deleteRefreshTokenHistory(token);
+    this.cookieService.clearRefreshTokenCookie({ response });
 
     return null;
   }
