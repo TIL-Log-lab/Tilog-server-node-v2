@@ -1,5 +1,5 @@
 import { users } from '@prisma/client';
 
-export interface UpSertUserAndGetIdResponse {
+export interface UpsertUserAndGetIdResponse {
   id: users['id'];
 }
