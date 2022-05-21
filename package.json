@@ -46,7 +46,7 @@
     "prisma:migrate:local": "dotenv -e environments/.local.env prisma migrate dev",
     "prisma:migrate:create_only:local": "dotenv -e environments/.local.env -- npx prisma migrate dev --create-only",
     "openapi:generate": "openapi-generator-cli generate -i library/swagger/openapi-spec.json -g typescript-axios -o openapi/tilog-api",
-    "openapi:publish": "yarn openapi:generate &&cd ./openapi && yarn package:publish"
+    "openapi:publish": "yarn openapi:generate &&cd ./openapi && yarn build && yarn package:publish"
   },
   "dependencies": {
     "@nestjs/common": "^8.4.4",

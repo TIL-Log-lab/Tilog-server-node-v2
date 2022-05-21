@@ -1,8 +1,9 @@
 {
   "name": "@til-log.lab/tilog-api",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "description": "TILog-v2 openapi",
-  "main": "./tilog-api/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "github",
     "url": "https://github.com/TIL-Log-lab/Tilog-server-node-v2"
@@ -16,8 +17,15 @@
   "peerDependencies": {
     "axios": "^0.26.1"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "tsc",
     "version:patch": "yarn version --patch --no-git-tag-version --no-commit-hooks",
     "package:publish": "yarn version:patch && yarn publish"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
   }
 }
