@@ -1,6 +1,5 @@
 import { posts } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsNotEmpty,
