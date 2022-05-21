@@ -37,7 +37,6 @@ export class CreatePostRequestBodyDto {
   @ApiProperty({ type: String, nullable: true })
   markdownContent: posts['markDownContent'];
 
-  @Transform(({ value }) => value === 'true')
   @IsBoolean()
   @IsNotEmpty()
   isPrivate: boolean;
