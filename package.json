@@ -45,7 +45,7 @@
     "prisma:push:local": "dotenv -e environments/.local.env prisma db push",
     "prisma:migrate:local": "dotenv -e environments/.local.env prisma migrate dev",
     "prisma:migrate:create_only:local": "dotenv -e environments/.local.env -- npx prisma migrate dev --create-only",
-    "openapi:generate": "openapi-generator-cli generate -i library/swagger/openapi-spec.json -g typescript-axios -o openapi/tilog-api",
+    "openapi:generate": "openapi-generator-cli generate -i library/swagger/openapi-spec.json -g typescript-axios -o openapi/tilog-api --additional-properties=supportsES6=true",
     "openapi:publish": "yarn openapi:generate &&cd ./openapi && yarn build && yarn package:publish"
   },
   "dependencies": {
