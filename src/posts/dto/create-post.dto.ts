@@ -1,6 +1,5 @@
 import { posts } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsNotEmpty,
@@ -37,7 +36,6 @@ export class CreatePostRequestBodyDto {
   @ApiProperty({ type: String, nullable: true })
   markdownContent: posts['markDownContent'];
 
-  @Transform(({ value }) => value === 'true')
   @IsBoolean()
   @IsNotEmpty()
   isPrivate: boolean;
