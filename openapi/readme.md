@@ -16,9 +16,11 @@ npm install @til-log.lab/tilog-api
 import * tilogApi from '@til-log.lab/tilog-api'
 ```
 
-# Migration 0.0.1 ~ 0.0.14 -> 0.1.0 Guide
+# Update Logs
 
-## Change Error Interface
+## Migration 0.0.1 ~ 0.0.14 -> 0.1.0 Guide
+
+### Change Error Interface
 
 ```
 const COUNTRY = {
@@ -31,7 +33,7 @@ type ExceptionMessageInterface = Partial<
 >;
 ```
 
-## Checking ErrorType
+### Checking ErrorType
 
 ```
 const isExceptionMessageInterface = (
@@ -43,3 +45,7 @@ const isExceptionMessageInterface = (
   return Object.keys(object).some((key) => key in COUNTRY);
 };
 ```
+
+## 0.1.4 -> Webpack supported
+
+Built with `JavaScript ES6`, `commonjs Module`
