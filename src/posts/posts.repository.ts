@@ -45,6 +45,39 @@ export class PostsRepository {
     });
   }
 
+  updateById({
+    prismaConnection,
+    postId,
+    categoryId,
+    title,
+    subTitle,
+    thumbnailUrl,
+    markdownContent,
+    isPrivate,
+  }: {
+    prismaConnection: PrismaConnection;
+    postId: posts['id'];
+    categoryId: posts['categoryID'];
+    title: posts['title'];
+    subTitle: posts['subTitle'];
+    thumbnailUrl: posts['thumbNailURL'];
+    markdownContent: posts['markDownContent'];
+    isPrivate: boolean;
+  }) {
+    return prismaConnection.posts.update({
+      where: { id: postId },
+      data: {
+        categoryID: categoryId,
+        title,
+        subTitle,
+        thumbNailURL: thumbnailUrl,
+        markDownContent: markdownContent,
+        private: isPrivate ? 1 : 0,
+        updatedAt: now(),
+      },
+    });
+  }
+
   getDetailFindById(prismaConnection: PrismaConnection, postId: posts['id']) {
     return prismaConnection.posts.findFirst({
       where: {

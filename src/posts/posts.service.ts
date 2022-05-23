@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -9,7 +10,11 @@ import { PostsRepository } from '@api/posts/posts.repository';
 import { PrismaService } from '@app/library/prisma';
 import { PostsViewRepository } from '@api/posts/view/posts-view.repository';
 
-import { isPrivatePost, postNotFound } from '@api/posts/errors/posts.error';
+import {
+  isPrivatePost,
+  notPostYouOwn,
+  postNotFound,
+} from '@api/posts/errors/posts.error';
 import {
   PostSearchDateScope,
   PostSearchSortScope,
@@ -43,6 +48,45 @@ export class PostsService {
     await this.postsRepository.create({
       prismaConnection: this.prismaService,
       userId,
+      categoryId,
+      title,
+      subTitle,
+      thumbnailUrl,
+      markdownContent,
+      isPrivate,
+    });
+  }
+
+  async modifyPost({
+    postId,
+    userId,
+    categoryId,
+    title,
+    subTitle,
+    thumbnailUrl,
+    markdownContent,
+    isPrivate,
+  }: {
+    postId: posts['id'];
+    userId: posts['usersID'];
+    categoryId: posts['categoryID'];
+    title: posts['title'];
+    subTitle: posts['subTitle'];
+    thumbnailUrl: posts['thumbNailURL'];
+    markdownContent: posts['markDownContent'];
+    isPrivate: boolean;
+  }) {
+    const postDetail = await this.postsRepository.getDetailFindById(
+      this.prismaService,
+      postId,
+    );
+    if (!postDetail) throw new NotFoundException(postNotFound);
+    if (userId !== postDetail.usersID)
+      throw new ForbiddenException(notPostYouOwn);
+
+    return this.postsRepository.updateById({
+      prismaConnection: this.prismaService,
+      postId,
       categoryId,
       title,
       subTitle,
