@@ -24,6 +24,49 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'import/prefer-default-export': 'off',
     'class-methods-use-this': 'off',
-    "max-classes-per-file": 'off'
+    "max-classes-per-file": 'off',
+    "import/order": ["error", {
+      "newlines-between": "always",
+      "groups": ['builtin', 'external', 'type'],
+      "pathGroups": [
+        {
+          "pattern": "@nestjs/**",
+          "group": "builtin",
+        },
+        {
+          "pattern": "@prisma/**",
+          "group": "builtin",
+        },
+        {
+          "pattern": "{.,..}/**/*.controller",
+          "group": "external",
+        },
+        {
+          "pattern": "{.,..}/**/*.service",
+          "group": "external",
+        },
+        {
+          "pattern": "{.,..}/**/*.module",
+          "group": "external",
+        },
+        {
+          "pattern": "**/type/**",
+          "group": "type",
+        },
+        {
+          "pattern": "**/error/**",
+          "group": "type",
+        },
+        {
+          "pattern": "**/dto/**",
+          "group": "type",
+        },
+      ],
+      "alphabetize": {
+        "order": 'asc',
+        "caseInsensitive": true,
+      },
+      "pathGroupsExcludedImportTypes": ["type"]
+    }]
   },
 };
