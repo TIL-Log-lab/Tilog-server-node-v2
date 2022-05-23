@@ -10,6 +10,7 @@ import {
   CreatePost,
   GetPostDetail,
   GetPosts,
+  ModifyPost,
 } from '@api/posts/posts.decorator';
 import { PostsService } from '@api/posts/posts.service';
 import { JwtUserId } from '@app/library/decorators/jwt-user-Id.decorator';
@@ -23,6 +24,7 @@ import {
   GetPostsRequestQueryDto,
   GetPostsResponseDto,
 } from '@api/posts/dto/get-posts-detail.dto';
+import { ModifyPostRequestBodyDto } from '@api/posts/dto/modify-post.dto';
 import { unauthorizedUser } from '@api/users/auth/error/users-auth.error';
 import { TokenPayload } from '@app/library/jwt/type/token.type';
 
@@ -37,6 +39,16 @@ export class PostsController {
   ) {
     if (!userId) throw new UnauthorizedException(unauthorizedUser);
     await this.postsService.createPost({ userId, ...createPostRequestBodyDto });
+    return null;
+  }
+
+  @ModifyPost()
+  async modifyPost(
+    @JwtUserId() { userId }: TokenPayload,
+    @Body() modifyPostRequestBodyDto: ModifyPostRequestBodyDto,
+  ) {
+    if (!userId) throw new UnauthorizedException(unauthorizedUser);
+    await this.postsService.modifyPost({ userId, ...modifyPostRequestBodyDto });
     return null;
   }
 
