@@ -17,7 +17,7 @@ import {
   ExceptionMessageInterface,
 } from '@app/library/all-exceptions';
 import { COUNTRY } from '@app/library/constants';
-import validationSchema from '@env/validationSchema';
+import validationSchema from '@env/validation-schema';
 
 @Module({
   imports: [
