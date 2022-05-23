@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 import { users, usersAuth } from '@prisma/client';
 
-import { PrismaService } from '@app/library/prisma';
 import { UsersAuthRepository } from '@api/users/auth/users-auth.repository';
+import { JwtTokenService } from '@app/library/jwt/jwt-token.service';
+import { PrismaService } from '@app/library/prisma';
 
 import {
   decodeRefreshTokenFail,
   deviceTypeInjectFail,
 } from '@api/users/auth/error/users-auth.error';
-import { JwtTokenService } from '@app/library/jwt/jwt-token.service';
 
 @Injectable()
 export class UsersAuthService {

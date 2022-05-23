@@ -6,17 +6,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
-import { PostsService } from '@api/posts/posts.service';
 import {
   CreatePost,
   GetPostDetail,
   GetPosts,
 } from '@api/posts/posts.decorator';
+import { PostsService } from '@api/posts/posts.service';
 import { JwtUserId } from '@app/library/decorators/jwt-user-Id.decorator';
 
 import { CreatePostRequestBodyDto } from '@api/posts/dto/create-post.dto';
-import { unauthorizedUser } from '@api/users/auth/error/users-auth.error';
-import { TokenPayload } from '@app/library/jwt/type/token.type';
 import {
   GetPostDetailRequestQueryDto,
   GetPostDetailResponseDto,
@@ -25,6 +23,8 @@ import {
   GetPostsRequestQueryDto,
   GetPostsResponseDto,
 } from '@api/posts/dto/get-posts-detail.dto';
+import { unauthorizedUser } from '@api/users/auth/error/users-auth.error';
+import { TokenPayload } from '@app/library/jwt/type/token.type';
 
 @Controller('posts')
 export class PostsController {

@@ -6,14 +6,14 @@ import {
 import { posts, postView } from '@prisma/client';
 
 import { PostsRepository } from '@api/posts/posts.repository';
-import { PrismaService } from '@app/library/prisma';
 import { PostsViewRepository } from '@api/posts/view/posts-view.repository';
-
-import { isPrivatePost, postNotFound } from '@api/posts/errors/posts.error';
 import {
   PostSearchDateScope,
   PostSearchSortScope,
 } from '@app/library/constants';
+import { PrismaService } from '@app/library/prisma';
+
+import { isPrivatePost, postNotFound } from '@api/posts/error/posts.error';
 
 @Injectable()
 export class PostsService {

@@ -1,5 +1,5 @@
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { applyDecorators, Delete, Get, Post } from '@nestjs/common';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { GithubAuthGuard } from '@app/library/guards/auth/github-auth.guard';
 

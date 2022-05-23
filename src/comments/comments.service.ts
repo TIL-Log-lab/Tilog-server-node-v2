@@ -1,17 +1,19 @@
-import { CommentsRepository } from '@api/comments/comments.repository';
-import {
-  commentNotFound,
-  unauthorizedComment,
-} from '@api/comments/error/comments.error';
-import { postNotFound } from '@api/posts/errors/posts.error';
-import { PostsRepository } from '@api/posts/posts.repository';
-import { PrismaService } from '@app/library/prisma';
 import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { comments } from '@prisma/client';
+
+import { CommentsRepository } from '@api/comments/comments.repository';
+import { PostsRepository } from '@api/posts/posts.repository';
+import { PrismaService } from '@app/library/prisma';
+
+import {
+  commentNotFound,
+  unauthorizedComment,
+} from '@api/comments/error/comments.error';
+import { postNotFound } from '@api/posts/error/posts.error';
 
 @Injectable()
 export class CommentsService {
