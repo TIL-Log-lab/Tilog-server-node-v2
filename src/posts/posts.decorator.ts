@@ -1,4 +1,4 @@
-import { applyDecorators, Get, Post } from '@nestjs/common';
+import { applyDecorators, Get, Post, Put } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { JwtAccessTokenGuard } from '@app/library/guards/auth/jwt-access-token.guard';
@@ -15,6 +15,17 @@ export const CreatePost = () =>
       summary: '포스트를 작성합니다.',
     }),
     ApiOkResponse({ description: '게시글 생성성공', type: undefined }),
+  );
+
+export const ModifyPost = () =>
+  applyDecorators(
+    Put(),
+    JwtAccessTokenGuard(),
+    ApiTags('Post'),
+    ApiOperation({
+      summary: '포스트를 수정합니다.',
+    }),
+    ApiOkResponse({ description: '게시글 수정성공', type: undefined }),
   );
 
 export const GetPostDetail = () =>
