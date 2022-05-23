@@ -19,4 +19,5 @@ export default Joi.object({
   REFRESH_COOKIE_MAX_AGE: Joi.number().required(),
   CORS_ORIGIN: Joi.string().required(),
   CORS_METHOD: Joi.string().required(),
+  CORS_CREDENTIALS: Joi.boolean().required(),
 });

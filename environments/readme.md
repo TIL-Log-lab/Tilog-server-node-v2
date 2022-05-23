@@ -52,6 +52,7 @@ REFRESH_COOKIE_MAX_AGE=3600
 # ','으로 각 옵션을 구분합니다
 CORS_ORIGIN=http://localhost,http://127.0.0.1
 CORS_METHOD=GET,HEAD,PUT,PATCH,POST,DELETE
+CORS_CREDENTIALS=true
 ```
 
 ## validation

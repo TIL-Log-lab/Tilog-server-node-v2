@@ -16,7 +16,8 @@ async function bootstrap() {
   const methods: string[] = configService
     .get<string>('CORS_METHOD', 'GET,HEAD,PUT,PATCH,POST,DELETE')
     .split(',');
-  app.enableCors({ origin, methods });
+  const credentials = configService.get<boolean>('CORS_CREDENTIALS', true);
+  app.enableCors({ origin, methods, credentials });
 
   app.use(cookieParser());
   swaggerDocumentBuilder(app);
