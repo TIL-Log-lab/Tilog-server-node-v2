@@ -1,9 +1,9 @@
-import { PrismaModule } from '@app/library/prisma';
 import { Module } from '@nestjs/common';
 
-import { CategoriesService } from '@api/categories/categories.service';
 import { CategoriesController } from '@api/categories/categories.controller';
 import { CategoriesRepository } from '@api/categories/categories.repository';
+import { CategoriesService } from '@api/categories/categories.service';
+import { PrismaModule } from '@app/library/prisma';
 
 @Module({
   imports: [PrismaModule],

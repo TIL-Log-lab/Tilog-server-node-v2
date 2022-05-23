@@ -6,22 +6,22 @@ import {
   Res,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Response, Request } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { ApiParam } from '@nestjs/swagger';
 
-import { UsersAuthService } from '@api/users/auth/users-auth.service';
-import { CookieService } from '@app/library/cookie/cookie.service';
 import {
   GetAccessTokenUsingRefreshToken,
   GithubLogin,
   GithubLoginCallback,
   Logout,
 } from '@api/users/auth/users-auth.decorator';
+import { UsersAuthService } from '@api/users/auth/users-auth.service';
+import { CookieService } from '@app/library/cookie/cookie.service';
+import { Response, Request } from 'express';
 
-import { UpsertUserAndGetIdResponse } from '@api/users/type/users.service.type';
-import { hasNotRefreshToken } from '@api/users/auth/error/users-auth.error';
 import { GetAccessTokenUsingRefreshTokenResponse } from '@api/users/auth/dto/get-access-token-using-refresh-token.dto';
-import { ApiParam } from '@nestjs/swagger';
+import { hasNotRefreshToken } from '@api/users/auth/error/users-auth.error';
+import { UpsertUserAndGetIdResponse } from '@api/users/type/users.service.type';
 
 @Controller('auth')
 export class UsersAuthController {

@@ -8,17 +8,16 @@ import {
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 
+import { CategoriesModule } from './categories/categories.module';
+import { CommentsModule } from './comments/comments.module';
+import { PostsModule } from './posts/posts.module';
+import { UsersModule } from './users/users.module';
 import {
   AllExceptionsFilter,
   ExceptionMessageInterface,
 } from '@app/library/all-exceptions';
-import validationSchema from '@env/validationSchema';
-
 import { COUNTRY } from '@app/library/constants';
-import { UsersModule } from './users/users.module';
-import { PostsModule } from './posts/posts.module';
-import { CommentsModule } from './comments/comments.module';
-import { CategoriesModule } from './categories/categories.module';
+import validationSchema from '@env/validationSchema';
 
 @Module({
   imports: [

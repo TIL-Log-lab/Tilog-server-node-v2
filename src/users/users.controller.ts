@@ -1,13 +1,13 @@
 import { Body, Controller, UnauthorizedException } from '@nestjs/common';
-import { getMe, SetSetting } from '@api/users/users.decorator';
 
 import { UsersSettingService } from '@api/users/setting/users-setting.service';
+import { getMe, SetSetting } from '@api/users/users.decorator';
 import { JwtUserId } from '@app/library/decorators/jwt-user-Id.decorator';
 
-import { SetSettingRequestBodyDto } from '@api/users/dto/set-setting.dto';
-import { TokenPayload } from '@app/library/jwt/type/token.type';
 import { unauthorizedUser } from '@api/users/auth/error/users-auth.error';
 import { GetMeResponseDto } from '@api/users/dto/get-me.dto';
+import { SetSettingRequestBodyDto } from '@api/users/dto/set-setting.dto';
+import { TokenPayload } from '@app/library/jwt/type/token.type';
 
 @Controller('users')
 export class UsersController {
