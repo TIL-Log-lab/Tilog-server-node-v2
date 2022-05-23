@@ -45,6 +45,13 @@ REFRESH_COOKIE_PATH=/
 REFRESH_COOKIE_SAME_SITE=none
 REFRESH_COOKIE_DOMAIN=.localhost
 REFRESH_COOKIE_MAX_AGE=3600
+
+# CORS
+# 교차 출처 리소스 공유 설정
+# 쿠키를 사용하기 때문에 * 와일드 카드는 사용할 수 없습니다
+# ','으로 각 옵션을 구분합니다
+CORS_ORIGIN=http://localhost,http://127.0.0.1
+CORS_METHOD=GET,HEAD,PUT,PATCH,POST,DELETE
 ```
 
 ## validation
