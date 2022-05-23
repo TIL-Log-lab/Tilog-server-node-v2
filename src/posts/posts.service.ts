@@ -84,7 +84,7 @@ export class PostsService {
     if (userId !== postDetail.usersID)
       throw new ForbiddenException(notPostYouOwn);
 
-    const modifyResult = await this.postsRepository.updateById({
+    return this.postsRepository.updateById({
       prismaConnection: this.prismaService,
       postId,
       categoryId,
@@ -94,7 +94,6 @@ export class PostsService {
       markdownContent,
       isPrivate,
     });
-    return modifyResult;
   }
 
   async getPostDetail(
