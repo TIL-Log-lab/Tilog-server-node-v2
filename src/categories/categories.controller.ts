@@ -6,7 +6,10 @@ import {
 } from '@api/categories/categories.decorator';
 import { CategoriesService } from '@api/categories/categories.service';
 
-import { GetCategoriesResponseDto } from '@api/categories/dto/get-categories.dto';
+import {
+  GetCategoriesRequestQuery,
+  GetCategoriesResponseDto,
+} from '@api/categories/dto/get-categories.dto';
 import {
   GetUserCategoriesRequestQueryDto,
   GetUserCategoriesResponseDto,
@@ -17,9 +20,11 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @GetCategories()
-  async getCategories() {
+  async getCategories(@Query() { categoryName }: GetCategoriesRequestQuery) {
     return new GetCategoriesResponseDto({
-      list: await this.categoriesService.getAllCategories(),
+      list: categoryName
+        ? await this.categoriesService.findCategory(categoryName)
+        : await this.categoriesService.getAllCategories(),
     });
   }
 
