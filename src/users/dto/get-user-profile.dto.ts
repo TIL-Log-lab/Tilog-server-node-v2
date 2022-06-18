@@ -1,7 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { settingType, users, usersSetting } from '@prisma/client';
 
-class GetMeUserSettingItem {
+import { Transform } from 'class-transformer';
+import { IsNotEmpty, IsNumber } from 'class-validator';
+
+export class GetUserProfileRequestParamDto {
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  @IsNotEmpty()
+  userId: users['id'];
+}
+
+class GetUserProfileSettingItem {
   @ApiProperty({ enum: settingType })
   type: usersSetting['type'];
 
@@ -9,9 +19,7 @@ class GetMeUserSettingItem {
   content: usersSetting['content'];
 }
 
-export class GetMeResponseDto {
-  userId: users['id'];
-
+export class GetUserProfileResponseDto {
   name: users['userName'];
 
   @ApiProperty({ type: String, nullable: true })
@@ -19,9 +27,9 @@ export class GetMeResponseDto {
 
   createdAt: users['createdAt'];
 
-  settings: GetMeUserSettingItem[];
+  settings: GetUserProfileSettingItem[];
 
-  constructor(required: Required<GetMeResponseDto>) {
+  constructor(required: Required<GetUserProfileResponseDto>) {
     Object.assign(this, required);
   }
 }
