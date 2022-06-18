@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { posts } from '@prisma/client';
 
-import { arrayOfLastDate, now } from '@app/library/date';
-
 import {
   PostSearchDateScope,
   PostSearchSortScope,
 } from '@app/library/constants';
+import { arrayOfLastDate, now } from '@app/library/date';
+
 import { PrismaConnection } from '@app/library/prisma/type/prisma.type';
 
 @Injectable()
@@ -136,7 +136,7 @@ export class PostsRepository {
       dateScope === PostSearchDateScope.All
         ? undefined
         : Number(PostSearchDateScope[`${dateScope}`]);
-
+    console.log(hasPrivatePosts);
     return prismaConnection.posts.findMany({
       include: {
         users: true,
@@ -145,7 +145,7 @@ export class PostsRepository {
       where: {
         ...(userId && { usersID: userId }),
         ...(categoryId && { categoryID: categoryId }),
-        ...(hasPrivatePosts ? { private: 1 } : { private: 0 }),
+        ...(!hasPrivatePosts && { private: 0 }),
         createdDay: {
           in: dayCount ? arrayOfLastDate(now(), dayCount) : undefined,
         },

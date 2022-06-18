@@ -116,6 +116,7 @@ export class PostsController {
           view: item.viewCounts,
           like: item.likes,
           createdAt: item.createdAt,
+          private: item.private,
           user: {
             userId: item.users.id,
             username: item.users.userName,
