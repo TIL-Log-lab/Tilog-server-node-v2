@@ -1,5 +1,7 @@
-import { posts } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
+import { posts } from '@prisma/client';
+
+import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsNotEmpty,
@@ -39,4 +41,14 @@ export class CreatePostRequestBodyDto {
   @IsBoolean()
   @IsNotEmpty()
   isPrivate: boolean;
+}
+
+export class CreatePostResponseBodyDto {
+  @Transform(({ value }) => String(value))
+  @ApiProperty({ type: 'string' })
+  id: posts['id'];
+
+  constructor(required: Required<CreatePostResponseBodyDto>) {
+    Object.assign(this, required);
+  }
 }
