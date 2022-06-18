@@ -33,10 +33,10 @@ export const GetUserProfile = () =>
     Get('profile/:userId'),
     ApiTags('User'),
     ApiOperation({
-      summary: '특정 유저정보를 요청합니다.',
+      summary: '특정 유저프로필 정보를 요청합니다.',
     }),
     ApiOkResponse({
-      description: '유저 정보 로드완료',
+      description: '유저 프로필 로드완료',
       type: GetUserProfileResponseDto,
     }),
   );
