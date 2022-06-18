@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { users } from '@prisma/client';
+import { category, users } from '@prisma/client';
 
 import { CategoriesRepository } from '@api/categories/categories.repository';
 import { PrismaService } from '@app/library/prisma';
@@ -13,6 +13,13 @@ export class CategoriesService {
 
   getAllCategories() {
     return this.categoriesRepository.getAll(this.prismaService);
+  }
+
+  findCategory(categoryName: category['categoryName']) {
+    return this.categoriesRepository.findAllByName({
+      prismaConnection: this.prismaService,
+      categoryName,
+    });
   }
 
   getUserCategories(userId: users['id']) {

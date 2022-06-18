@@ -1,6 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { category } from '@prisma/client';
-import { Type } from 'class-transformer';
+
+import { Transform, Type } from 'class-transformer';
+import { IsOptional, IsString } from 'class-validator';
+
+export class GetCategoriesRequestQuery {
+  @Transform(({ value }) => String(value))
+  @IsString()
+  @IsOptional()
+  categoryName?: category['categoryName'];
+}
 
 class GetCategoriesItem {
   id: category['id'];

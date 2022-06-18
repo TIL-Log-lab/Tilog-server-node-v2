@@ -9,6 +9,18 @@ export class CategoriesRepository {
     return prismaConnection.category.findMany();
   }
 
+  findAllByName({
+    prismaConnection,
+    categoryName,
+  }: {
+    prismaConnection: PrismaConnection;
+    categoryName: category['categoryName'];
+  }) {
+    return prismaConnection.category.findMany({
+      where: { categoryName: { contains: categoryName } },
+    });
+  }
+
   // NOTE: 특정 유저가 작성한 게시글의 모든 카테고리내역
   getManyByUserIdGroupeByCategoryId(
     prismaConnection: PrismaConnection,
