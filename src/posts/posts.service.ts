@@ -45,7 +45,7 @@ export class PostsService {
     markdownContent: posts['markDownContent'];
     isPrivate: boolean;
   }) {
-    await this.postsRepository.create({
+    const createResult = await this.postsRepository.create({
       prismaConnection: this.prismaService,
       userId,
       categoryId,
@@ -55,6 +55,7 @@ export class PostsService {
       markdownContent,
       isPrivate,
     });
+    return createResult.id;
   }
 
   async modifyPost({
