@@ -1,9 +1,9 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { usersSetting } from '@prisma/client';
 
-import { PrismaService } from '@app/library/prisma';
 import { UsersSettingRepository } from '@api/users/setting/users-setting.repository';
 import { UsersRepository } from '@api/users/users.repository';
+import { PrismaService } from '@app/library/prisma';
 
 @Injectable()
 export class UsersSettingService {
@@ -52,6 +52,7 @@ export class UsersSettingService {
       if (!userProfile) throw new InternalServerErrorException();
 
       return {
+        userId: userProfile.id,
         name: userProfile.userName,
         avatar: userProfile.proFileImageURL,
         createdAt: userProfile.createdAt,

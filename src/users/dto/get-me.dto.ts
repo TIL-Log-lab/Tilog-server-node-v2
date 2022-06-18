@@ -10,6 +10,8 @@ class GetMeUserSettingItem {
 }
 
 export class GetMeResponseDto {
+  userId: users['id'];
+
   name: users['userName'];
 
   @ApiProperty({ type: String, nullable: true })
