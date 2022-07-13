@@ -5,6 +5,7 @@ import { now } from '@app/library/date';
 import { FileManagerAwsS3Repository } from '@app/library/file-manager/aws-s3/file-manager-aws-s3.repository';
 import { PrismaService } from '@app/library/prisma';
 
+import { fileUploadFail } from './error/file-upload.error';
 import { FileUploadRepository } from './file-upload.repository';
 
 @Injectable()
@@ -56,7 +57,7 @@ export class FileUploadService {
         });
       });
     } catch (_) {
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException(fileUploadFail);
     }
   }
 }
