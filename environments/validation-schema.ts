@@ -20,4 +20,7 @@ export default Joi.object({
   CORS_ORIGIN: Joi.string().required(),
   CORS_METHOD: Joi.string().required(),
   CORS_CREDENTIALS: Joi.boolean().required(),
+  AWS_S3_BUCKET_NAME: Joi.string().required(),
+  AWS_S3_ACCESS_KEY: Joi.string().required(),
+  AWS_S3_KEY_SECRET: Joi.string().required(),
 });
