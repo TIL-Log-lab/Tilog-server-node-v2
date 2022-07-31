@@ -11,6 +11,7 @@ import { PrismaService } from '@app/library/prisma';
 
 import {
   commentNotFound,
+  replyToCommentNotFound,
   unauthorizedComment,
 } from '@api/comments/error/comments.error';
 import { postNotFound } from '@api/posts/error/posts.error';
@@ -40,6 +41,15 @@ export class CommentsService {
     );
 
     if (!hasPost) throw new NotFoundException(postNotFound);
+
+    if (replyTo) {
+      const hasComment = await this.commentsRepository.findOneByCommentId({
+        prismaConnection: this.prismaService,
+        commentId: replyTo,
+      });
+
+      if (!hasComment) throw new NotFoundException(replyToCommentNotFound);
+    }
 
     await this.commentsRepository.create({
       prismaConnection: this.prismaService,
