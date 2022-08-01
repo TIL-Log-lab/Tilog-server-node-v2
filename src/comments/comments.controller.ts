@@ -4,6 +4,7 @@ import {
   CreateComments,
   DeleteComment,
   GetComments,
+  UndeleteComment,
   UpdateComment,
 } from '@api/comments/comments.decorator';
 import { CommentsService } from '@api/comments/comments.service';
@@ -15,6 +16,7 @@ import {
   GetCommentsRequestQueryDto,
   GetCommentsResponseDto,
 } from '@api/comments/dto/get-comments.dto';
+import { UndeleteCommentRequestDto } from '@api/comments/dto/undelete-comment.dto';
 import { UpdateCommentRequestDto } from '@api/comments/dto/update-comment.dto';
 import { decodeAccessTokenFail } from '@api/users/auth/error/users-auth.error';
 import { TokenPayload } from '@app/library/jwt/type/token.type';
@@ -86,5 +88,18 @@ export class CommentsController {
       userId,
       ...updateCommentRequestDto,
     });
+  }
+
+  @UndeleteComment()
+  async undeleteComment(
+    @JwtUserId() { userId }: TokenPayload,
+    @Body() undeleteCommentRequestDto: UndeleteCommentRequestDto,
+  ) {
+    if (!userId) throw new UnauthorizedException(decodeAccessTokenFail);
+    await this.commentsService.undeleteComment({
+      userId,
+      ...undeleteCommentRequestDto,
+    });
+    return null;
   }
 }
