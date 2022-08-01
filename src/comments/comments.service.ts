@@ -115,7 +115,8 @@ export class CommentsService {
       commentId,
     });
 
-    if (!hasComment) throw new NotFoundException(commentNotFound);
+    if (!hasComment || hasComment.deletedAt !== null)
+      throw new NotFoundException(commentNotFound);
 
     const hasUserComment =
       await this.commentsRepository.findOneByUserIdAndCommentId({
@@ -131,6 +132,29 @@ export class CommentsService {
       userId,
       commentId,
       content,
+    });
+  }
+
+  async undeleteComment({
+    userId,
+    commentId,
+  }: {
+    userId: comments['usersID'];
+    commentId: comments['id'];
+  }) {
+    const hasComment =
+      await this.commentsRepository.findOneByUserIdAndCommentId({
+        prismaConnection: this.prismaService,
+        userId,
+        commentId,
+      });
+
+    if (!hasComment) throw new NotFoundException(commentNotFound);
+
+    await this.commentsRepository.softUndeleteByCommentId({
+      prismaConnection: this.prismaService,
+      userId,
+      commentId,
     });
   }
 }

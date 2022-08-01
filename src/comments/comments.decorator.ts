@@ -56,3 +56,17 @@ export const UpdateComment = () =>
       type: undefined,
     }),
   );
+
+export const UndeleteComment = () =>
+  applyDecorators(
+    Put('undelete'),
+    JwtAccessTokenGuard(),
+    ApiTags('Comment'),
+    ApiOperation({
+      summary: '댓글 삭제를 취소합니다.',
+    }),
+    ApiOkResponse({
+      description: '댓글 삭제 취소 성공',
+      type: undefined,
+    }),
+  );

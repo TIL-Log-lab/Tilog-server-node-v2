@@ -64,7 +64,6 @@ export class CommentsRepository {
       where: {
         id: commentId,
         usersID: userId,
-        deletedAt: null,
       },
     });
   }
@@ -80,6 +79,26 @@ export class CommentsRepository {
   }) {
     return prismaConnection.comments.updateMany({
       data: { deletedAt: now() },
+      where: {
+        id: commentId,
+        usersID: userId,
+      },
+    });
+  }
+
+  softUndeleteByCommentId({
+    prismaConnection,
+    commentId,
+    userId,
+  }: {
+    prismaConnection: PrismaConnection;
+    commentId: comments['id'];
+    userId: comments['usersID'];
+  }) {
+    return prismaConnection.comments.updateMany({
+      data: {
+        deletedAt: null,
+      },
       where: {
         id: commentId,
         usersID: userId,
