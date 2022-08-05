@@ -19,11 +19,11 @@ model comments {
   id        BigInt    @id @default(autoincrement())
   usersID   Int       @db.UnsignedInt
   postsID   BigInt
-  content   String    @db.VarChar(300)
   replyTo   BigInt?
   createdAt DateTime  @db.DateTime(0)
   updatedAt DateTime? @db.DateTime(0)
   deletedAt DateTime? @db.DateTime(0)
+  content   String    @db.VarChar(300)
   posts     posts     @relation(fields: [postsID], references: [id], onDelete: Cascade, map: "FK_comments_postsID_posts_id")
   users     users     @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_comments_usersID_users_id")
 
@@ -71,7 +71,6 @@ model posts {
   usersID         Int        @db.UnsignedInt
   categoryID      Int        @db.UnsignedInt
   title           String     @db.VarChar(50)
-  subTitle        String?
   thumbNailURL    String?    @db.VarChar(300)
   viewCounts      Int        @default(0) @db.UnsignedInt
   likes           Int        @default(0) @db.UnsignedInt
@@ -80,7 +79,8 @@ model posts {
   createdAt       DateTime   @db.DateTime(0)
   updatedAt       DateTime?  @db.DateTime(0)
   deletedAt       DateTime?  @db.DateTime(0)
-  createdDay      DateTime?  @db.Date()
+  createdDay      DateTime?  @db.Date
+  subTitle        String?
   category        category   @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "FK_posts_categoryID_category_id")
   users           users      @relation(fields: [usersID], references: [id], onDelete: Cascade, map: "FK_posts_usersID_users_id")
   comments        comments[]
@@ -97,23 +97,17 @@ model users {
   userName          String         @default("User") @db.VarChar(50)
   proFileImageURL   String?        @db.VarChar(300)
   mailAddress       String?        @db.VarChar(50)
-  provider          OauthProvider?
-  providerServiceId String?
   createdAt         DateTime       @db.DateTime(0)
   updatedAt         DateTime?      @db.DateTime(0)
   deletedAt         DateTime?      @db.DateTime(0)
+  provider          OauthProvider?
+  providerServiceId String?
   comments          comments[]
   imageUpload       imageUpload[]
   postLike          postLike[]
   posts             posts[]
 }
 
-enum OauthProvider {
-  GITHUB
-}
-
-// NOTE: 유저 refreshToken 기록 테이블
-// users.id --------<  usersAuth.userId
 model usersAuth {
   refreshToken String    @id
   userId       Int
@@ -123,13 +117,15 @@ model usersAuth {
   expireAt     DateTime?
 }
 
-// NOTE: 유저 설정 기록 테이블
-// users.id --------<  usersSetting.userId
 model usersSetting {
   id      Int         @id @default(autoincrement()) @db.UnsignedInt
   userId  Int
   type    settingType
   content String?
+}
+
+enum OauthProvider {
+  GITHUB
 }
 
 enum settingType {

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { comments, users } from '@prisma/client';
+
 import { Transform, Type } from 'class-transformer';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
@@ -28,6 +29,8 @@ class GetCommentsItem {
   @ApiProperty({ type: String, nullable: true })
   replyTo: comments['replyTo'];
 
+  repliesCount: number;
+
   @Transform(({ value }) => String(value))
   @ApiProperty({ type: String })
   postId: comments['postsID'];
@@ -52,6 +55,8 @@ class GetCommentsUserItem {
 export class GetCommentsResponseDto {
   @Type(() => GetCommentsItem)
   list: GetCommentsItem[];
+
+  commentsCount: number;
 
   constructor(required: Required<GetCommentsResponseDto>) {
     Object.assign(this, required);

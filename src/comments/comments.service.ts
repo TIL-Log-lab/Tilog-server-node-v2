@@ -8,6 +8,7 @@ import { comments } from '@prisma/client';
 import { CommentsRepository } from '@api/comments/comments.repository';
 import { PostsRepository } from '@api/posts/posts.repository';
 import { PrismaService } from '@app/library/prisma';
+import * as _ from 'lodash';
 
 import {
   commentNotFound,
@@ -76,6 +77,18 @@ export class CommentsService {
         content: item.deletedAt ? null : item.content,
       };
     });
+  }
+
+  async getRepliesCounts(commentIds: comments['id'][]) {
+    return _.mapValues(
+      _.keyBy(
+        await this.commentsRepository.findManyRepliesCountByCommentId({
+          prismaConnection: this.prismaService,
+          commentIds,
+        }),
+        (item) => item.replyTo,
+      ),
+    );
   }
 
   async deleteComment({

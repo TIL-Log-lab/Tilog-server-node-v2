@@ -43,13 +43,20 @@ export class CommentsController {
     const commentsList = await this.commentsService.getComments(
       getCommentsRequestQueryDto,
     );
+    const commentIds = commentsList.map((item) => item.id);
+    const repliesCounts = await this.commentsService.getRepliesCounts(
+      commentIds,
+    );
 
     return new GetCommentsResponseDto({
+      commentsCount: commentsList.length,
       list: commentsList.map((item) => {
+        const { _count } = repliesCounts[`${item.id}`];
         return {
           id: item.id,
           content: item.content,
           replyTo: item.replyTo,
+          repliesCount: _count.replyTo,
           createdAt: item.createdAt,
           deletedAt: item.deletedAt,
           postId: item.postsID,

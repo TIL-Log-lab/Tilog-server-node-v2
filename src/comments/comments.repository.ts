@@ -121,4 +121,22 @@ export class CommentsRepository {
       },
     });
   }
+
+  findManyRepliesCountByCommentId({
+    prismaConnection,
+    commentIds,
+  }: {
+    prismaConnection: PrismaConnection;
+    commentIds: comments['id'][];
+  }) {
+    return prismaConnection.comments.groupBy({
+      by: ['replyTo'],
+      _count: {
+        replyTo: true,
+      },
+      where: {
+        replyTo: { in: commentIds },
+      },
+    });
+  }
 }
